@@ -1,21 +1,20 @@
-// gradle构建工具依赖配置
-buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+// gradle构建工具本身的依赖配置(plugins 适用于gradle 2.1以上支持,等价于buildscript)
+plugins {
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
+    id 'org.unbroken-dome.test-sets' version '1.5.1'
 }
 
 // gradle插件
+// java插件用户编译java源文件等
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+// spring boot打包插件(等价于maven的spring-boot-maven-plugin)
 apply plugin: 'org.springframework.boot'
+// spring依赖管理插件(dependencyManagement)
 apply plugin: 'io.spring.dependency-management'
+// 集成测试插件
+apply plugin: 'org.unbroken-dome.test-sets'
 
 group = 'com.xiao.gs'
 version = '0.0.1-SNAPSHOT'
@@ -23,8 +22,11 @@ version = '0.0.1-SNAPSHOT'
 // java编译器版本
 sourceCompatibility = 1.8
 
+// jar包下载来源仓库配置
 repositories {
+    // 使用本地maven仓库
     mavenLocal()
+    // 如果本地maven仓库没有从此仓库下载
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
 }
 
@@ -69,6 +71,9 @@ dependencies {
     // 代码插件
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     compileOnly('org.projectlombok:lombok')
+    // 代码插件的注解处理,避免警告: Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+    annotationProcessor('org.projectlombok:lombok')
 
     // 测试
     testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -83,3 +88,29 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
+
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
+
+// 集成测试配置
+// 参考文章
+// https://github.com/unbroken-dome/gradle-testsets-plugin
+// https://www.testwithspring.com/lesson/running-integration-tests-with-gradle-spock-edition/
+// 自定义测试集integrationTest(物理目录名为)
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+// 开启测试缓存(执行成功的不再执行)
+project.integrationTest {
+    outputs.upToDateWhen { false }
+}
+
+tasks.withType(Test) {
+    reports.html.setDestination(file("${reporting.baseDir}/${name}"))
+}
+
+// 测试总结:
+// 默认的test目录下的和自定义测试集integration-test目录下的测试类都会执行,并且controller测试类的报名要和真实controller包名一致

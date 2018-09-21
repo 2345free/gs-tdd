@@ -1,7 +1,6 @@
-package com.xiao.gs.tdd;
+package com.xiao.gs.controller;
 
-import com.xiao.gs.tdd.controller.GreetingController;
-import com.xiao.gs.tdd.service.GreetingService;
+import com.xiao.gs.service.GreetingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.xiao.gs.tdd;
+package com.xiao.gs;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
