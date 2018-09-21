@@ -95,7 +95,7 @@ tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 // 参考文章
 // https://github.com/unbroken-dome/gradle-testsets-plugin
 // https://www.testwithspring.com/lesson/running-integration-tests-with-gradle-spock-edition/
-// 自定义测试集integrationTest(物理目录名为)
+// 自定义测试集integrationTest(配置物理目录名为integration-test)
 testSets {
     integrationTest { dirName = 'integration-test' }
 }
@@ -113,4 +113,4 @@ tasks.withType(Test) {
 }
 
 // 测试总结:
-// 默认的test目录下的和自定义测试集integration-test目录下的测试类都会执行,并且controller测试类的报名要和真实controller包名一致
+// 默认的test目录下的和自定义测试集integration-test目录下的测试类都会执行,并且controller测试类的包名要和真实controller包名一致
