@@ -1,6 +1,10 @@
 // gradle构建工具本身的依赖配置(plugins 适用于gradle 2.1以上支持,等价于buildscript)
 plugins {
+    // spring boot
     id 'org.springframework.boot' version '2.0.5.RELEASE'
+    // querydsl
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    // 集成测试
     id 'org.unbroken-dome.test-sets' version '1.5.1'
 }
 
@@ -13,6 +17,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 // spring依赖管理插件(dependencyManagement)
 apply plugin: 'io.spring.dependency-management'
+// querydsl插件
+apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 // 集成测试插件
 apply plugin: 'org.unbroken-dome.test-sets'
 
@@ -30,15 +36,34 @@ repositories {
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
 }
 
+// querydsl代码生成目录配置
+querydsl {
+    jpa = true
+    querydslSourcesDir = "${buildDir}/generated-sources/java"
+}
+
+// querydsl生成的代码加到编译路径
+sourceSets {
+    main {
+        java {
+            srcDir "${buildDir}/generated-sources/java"
+        }
+    }
+}
+
 // 项目依赖配置
 dependencies {
 
 //    compile('org.springframework.boot:spring-boot-starter-amqp')
     compile('org.springframework.boot:spring-boot-starter-aop')
 //    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+    // 使用jpa作为数据访问层框架
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    // 官方介绍: Querydsl是一个框架，可以构建静态类型的SQL类查询。它们不是将查询编写为内联字符串或将它们外部化为XML文件，而是可以通过Querydsl等流畅的API构建。
+    compile('com.querydsl:querydsl-jpa')
     // 使用H2内存数据库,spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
-    compile("com.h2database:h2")
+//    compile("com.h2database:h2")
+    compile("org.hsqldb:hsqldb")
 //    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 //    compile('org.springframework.boot:spring-boot-starter-data-redis')
 //    compile('org.springframework.boot:spring-boot-starter-data-rest')

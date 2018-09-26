@@ -7,3 +7,9 @@ server:
 spring:
   application:
     name: test-driven-development
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    continue-on-error: true

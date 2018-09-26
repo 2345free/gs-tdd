@@ -16,6 +16,7 @@
 package com.xiao.gs;
 
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GsTddApplication.class)
-// @AutoConfigureMockMvc // 启动完整的上下文但是不启动服务器
+@AutoConfigureMockMvc // 启动完整的上下文但是不启动服务器
 public abstract class AbstractIntegrationTest {
 
 }
