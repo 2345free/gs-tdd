@@ -36,7 +36,9 @@ dependencies {
 //    compile('org.springframework.boot:spring-boot-starter-amqp')
     compile('org.springframework.boot:spring-boot-starter-aop')
 //    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
-//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    // 使用H2内存数据库,spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
+    compile("com.h2database:h2")
 //    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 //    compile('org.springframework.boot:spring-boot-starter-data-redis')
 //    compile('org.springframework.boot:spring-boot-starter-data-rest')
@@ -75,10 +77,10 @@ dependencies {
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
     annotationProcessor('org.projectlombok:lombok')
 
-    // 测试
+    // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library])
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
-    testCompile('org.springframework.security:spring-security-test')
+//    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+//    testCompile('org.springframework.security:spring-security-test')
 }
 
 // 依赖管理
