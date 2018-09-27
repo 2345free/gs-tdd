@@ -1,11 +1,11 @@
 // gradle构建工具本身的依赖配置(plugins 适用于gradle 2.1以上支持,等价于buildscript)
 plugins {
     // spring boot
-    id 'org.springframework.boot' version '2.0.5.RELEASE'
+    id 'org.springframework.boot' version '2.0.5.RELEASE' apply(false)
     // querydsl
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" apply(false)
     // 集成测试
-    id 'org.unbroken-dome.test-sets' version '1.5.1'
+    id 'org.unbroken-dome.test-sets' version '1.5.1' apply(false)
 }
 
 // gradle插件

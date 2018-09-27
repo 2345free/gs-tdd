@@ -11,5 +11,10 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate.format_sql: true
   datasource:
     continue-on-error: true
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
