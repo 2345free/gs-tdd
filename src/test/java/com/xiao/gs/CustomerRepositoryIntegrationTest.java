@@ -63,6 +63,18 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Stefan"));
         assertThat(result.getLastname(), is("Lassard"));
+
+        // 删除此条数据
+        Long id = result.getId();
+        repository.deleteById(id);
+        assertFalse(repository.findById(id).isPresent());
+    }
+
+    @Test
+    public void findsAllCustomers() {
+
+        List<Customer> customers = repository.findAll();
+        assertThat(customers, hasSize(3));
     }
 
     @Test
@@ -80,6 +92,10 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Dave"));
         assertThat(result.getEmailAddress(), is(new EmailAddress("davematthews@dmband.com")));
+
+        // 还原邮箱,后续测试有用到
+        dave.setEmailAddress(new EmailAddress("dave@dmband.com"));
+        repository.save(dave);
     }
 
     @Test
@@ -90,19 +106,6 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(result, is(notNullValue()));
         assertThat(result.getFirstname(), is("Dave"));
         assertThat(result.getLastname(), is("Matthews"));
-    }
-
-    @Test
-    public void findsAllCustomers() {
-
-        List<Customer> customers = repository.findAll();
-        assertThat(customers, hasSize(3));
-    }
-
-    @Test
-    public void deletesCustomer() {
-        repository.deleteById(1L);
-        assertFalse(repository.findById(1L).isPresent());
     }
 
     @Test
@@ -132,4 +135,11 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(result, is(Matchers.iterableWithSize(2)));
         assertThat(result, hasItems(dave, carter));
     }
+
+    @Test
+    public void deletesCustomer() {
+        repository.deleteById(1L);
+        assertFalse(repository.findById(1L).isPresent());
+    }
+
 }
