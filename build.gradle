@@ -89,9 +89,9 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
 
     // 数据库
-    // 使用H2内存数据库,spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
-//    runtime("com.h2database:h2")
-    runtime('org.hsqldb:hsqldb')
+    // spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
+    runtime("com.h2database:h2")
+//    runtime('org.hsqldb:hsqldb')
     runtime('mysql:mysql-connector-java')
 
     // 代码插件
