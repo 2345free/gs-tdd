@@ -40,7 +40,7 @@ public class Customer extends AbstractEntity {
     @Column(unique = true)
     private EmailAddress emailAddress;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Set<Address> addresses = new HashSet<>();
 
