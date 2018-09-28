@@ -1,11 +1,13 @@
 // gradle构建工具本身的依赖配置(plugins 适用于gradle 2.1以上支持,等价于buildscript)
 plugins {
     // spring boot
-    id 'org.springframework.boot' version '2.0.5.RELEASE' apply(false)
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
     // querydsl
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" apply(false)
+    id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
+    // The Lombok Gradle Plugin (测试无效)
+    id 'net.ltgt.apt' version '0.10'
     // 集成测试
-    id 'org.unbroken-dome.test-sets' version '1.5.1' apply(false)
+    id 'org.unbroken-dome.test-sets' version '1.5.1'
 }
 
 // gradle插件
@@ -17,10 +19,6 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 // spring依赖管理插件(dependencyManagement)
 apply plugin: 'io.spring.dependency-management'
-// querydsl插件
-apply plugin: 'com.ewerk.gradle.plugins.querydsl'
-// 集成测试插件
-apply plugin: 'org.unbroken-dome.test-sets'
 
 group = 'com.xiao.gs'
 version = '0.0.1-SNAPSHOT'
@@ -54,64 +52,67 @@ sourceSets {
 // 项目依赖配置
 dependencies {
 
-//    compile('org.springframework.boot:spring-boot-starter-amqp')
-    compile('org.springframework.boot:spring-boot-starter-aop')
-//    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+//    compile 'org.springframework.boot:spring-boot-starter-amqp'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+//    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     // 使用jpa作为数据访问层框架
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     // 官方介绍: Querydsl是一个框架，可以构建静态类型的SQL类查询。它们不是将查询编写为内联字符串或将它们外部化为XML文件，而是可以通过Querydsl等流畅的API构建。
-    compile('com.querydsl:querydsl-jpa')
-//    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-//    compile('org.springframework.boot:spring-boot-starter-data-redis')
-//    compile('org.springframework.boot:spring-boot-starter-data-rest')
-//    compile('org.springframework.boot:spring-boot-starter-jooq')
-//    compile('org.springframework.boot:spring-boot-starter-mail')
-//    compile('org.springframework.boot:spring-boot-starter-quartz')
-//    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-validation')
-    compile('org.springframework.boot:spring-boot-starter-web')
+    compile 'com.querydsl:querydsl-jpa'
+//    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+//    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+//    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+//    compile 'org.springframework.boot:spring-boot-starter-jooq'
+//    compile 'org.springframework.boot:spring-boot-starter-mail'
+//    compile 'org.springframework.boot:spring-boot-starter-quartz'
+//    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework.boot:spring-boot-starter-validation'
+    compile 'org.springframework.boot:spring-boot-starter-web'
 
     // 监控
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('de.codecentric:spring-boot-admin-starter-client')
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'de.codecentric:spring-boot-admin-starter-client'
 
     // spring cloud
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
-    compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-ribbon'
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     // http请求重试
-    compile('org.springframework.retry:spring-retry')
+    compile 'org.springframework.retry:spring-retry'
 
     // 开发工具
-    runtime('org.springframework.boot:spring-boot-devtools')
+    runtime 'org.springframework.boot:spring-boot-devtools'
 
     // 数据库
     // spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
-    runtime("com.h2database:h2")
-//    runtime('org.hsqldb:hsqldb')
-    runtime('mysql:mysql-connector-java')
+    runtime "com.h2database:h2"
+//    runtime('org.hsqldb:hsqldb'
+    runtime 'mysql:mysql-connector-java'
 
     // 代码插件
-    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-    compile('org.projectlombok:lombok:1.18.2')
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
     // 代码插件的注解处理,避免警告: Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
-    annotationProcessor('org.projectlombok:lombok:1.18.2')
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // lombok使用compileOnly有时会报找不到符号@Data和程序包lombok不存在,是这个插件的一个小bug,但是使用compile就不会有问题
+    compile "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testCompile "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library])
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-//    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
-//    testCompile('org.springframework.security:spring-security-test')
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+//    testcompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+//    testcompile 'org.springframework.security:spring-security-test'
 }
 
 // 依赖管理
 dependencyManagement {
     imports {
-        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:$springBootAdminVersion"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
     }
 }
 
@@ -126,8 +127,13 @@ testSets {
     integrationTest { dirName = 'integration-test' }
 }
 
+// build 时自动执行junit测试
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
+
+// 跳过测试
+integrationTest.enabled false
+test.enabled false
 
 // 开启测试缓存(执行成功的不再执行)
 project.integrationTest {
@@ -135,7 +141,7 @@ project.integrationTest {
 }
 
 tasks.withType(Test) {
-    reports.html.setDestination(file("${reporting.baseDir}/${name}"))
+    reports.html.setDestination(file("$reporting.baseDir/$name"))
 }
 
 // 测试总结:
