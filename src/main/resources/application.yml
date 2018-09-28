@@ -13,6 +13,9 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
+      # 如果使用mysql,jpa生成表默认是myisam引擎,使用此属性可以更改默认引擎
+      hibernate.dialect.storage_engine: innodb
+#    database-platform:
   datasource:
     continue-on-error: true
   h2:

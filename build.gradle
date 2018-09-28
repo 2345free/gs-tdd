@@ -96,10 +96,10 @@ dependencies {
 
     // 代码插件
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-    compileOnly('org.projectlombok:lombok')
+    compile('org.projectlombok:lombok:1.18.2')
     // 代码插件的注解处理,避免警告: Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
-    annotationProcessor('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok:1.18.2')
 
     // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library])
     testCompile('org.springframework.boot:spring-boot-starter-test')
