@@ -92,6 +92,10 @@ dependencies {
 //    runtime('org.hsqldb:hsqldb'
     runtime 'mysql:mysql-connector-java'
 
+    // 数据库迁移工具
+    compile "org.flywaydb:flyway-core:$flywayVersion"
+
+    // #####################################################新依赖加上面###################################################
     // 代码插件
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
     // 代码插件的注解处理,避免警告: Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath
