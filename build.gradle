@@ -89,11 +89,15 @@ dependencies {
     // 数据库
     // spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
     runtime "com.h2database:h2"
-//    runtime('org.hsqldb:hsqldb'
+//    runtime 'org.hsqldb:hsqldb'
     runtime 'mysql:mysql-connector-java'
 
     // 数据库迁移工具
     compile "org.flywaydb:flyway-core:$flywayVersion"
+
+    // api文档生成工具
+    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
+    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
 
     // #####################################################新依赖加上面###################################################
     // 代码插件
@@ -106,7 +110,7 @@ dependencies {
     testCompile "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-    // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library])
+    // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library]),json-path
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 //    testcompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 //    testcompile 'org.springframework.security:spring-security-test'
