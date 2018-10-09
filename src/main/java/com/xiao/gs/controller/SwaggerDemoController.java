@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +18,19 @@ public class SwaggerDemoController {
 
     @ApiOperation(value = "operation1", notes = "operation1.notes")
     @GetMapping(value = "/operation1")
-    public ResponseEntity<String> operation1(
+    public ResponseEntity<Object> operation1(
             @ApiParam(value = "Status could be one of ...", required = true)
             @RequestParam(value = "status", defaultValue = "默认值") String status) {
-        return ResponseEntity.ok("operation1");
+        return new ResponseEntity<>("operation1", HttpStatus.OK);
     }
 
     @ApiOperation(notes = "Operation 2", value = "Operation 2 do something...")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "header1", value = "Header for bla bla...")
     )
-    @PostMapping(value = "/operation2")
+    @GetMapping(value = "/operation2")
     public ResponseEntity<String> operation2() {
-        return ResponseEntity.ok("operation2");
+        return ResponseEntity.ok().body(null);
     }
 
 }
