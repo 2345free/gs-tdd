@@ -1,6 +1,7 @@
 package com.xiao.gs.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,9 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .passwordEncoder(new MyPasswordEncoder())
+                .passwordEncoder(passwordEncoder())
                 .withUser("luoxx").password("123").roles("ADMIN")
         ;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new MyPasswordEncoder();
     }
 
     /**
