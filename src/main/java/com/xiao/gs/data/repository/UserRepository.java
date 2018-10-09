@@ -3,10 +3,14 @@ package com.xiao.gs.data.repository;
 import com.xiao.gs.data.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findByLastName(String lastName);
+    /**
+     * 通过用户名查找用户
+     *
+     * @param userName 用户名
+     * @return 用户
+     */
+    User findByUsername(String userName);
 
 }

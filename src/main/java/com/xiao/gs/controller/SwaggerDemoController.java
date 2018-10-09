@@ -1,5 +1,7 @@
 package com.xiao.gs.controller;
 
+import com.xiao.gs.bind.annotation.CurrentUser;
+import com.xiao.gs.data.domain.User;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -7,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author luoxiaoxiao
@@ -29,8 +32,8 @@ public class SwaggerDemoController {
             @ApiImplicitParam(name = "header1", value = "Header for bla bla...")
     )
     @GetMapping(value = "/operation2")
-    public ResponseEntity<String> operation2() {
-        return ResponseEntity.ok().body(null);
+    public ResponseEntity<User> operation2(@ApiIgnore @CurrentUser User user) {
+        return ResponseEntity.ok().body(user);
     }
 
 }

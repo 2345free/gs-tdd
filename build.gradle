@@ -65,7 +65,7 @@ dependencies {
 //    compile 'org.springframework.boot:spring-boot-starter-jooq'
 //    compile 'org.springframework.boot:spring-boot-starter-mail'
 //    compile 'org.springframework.boot:spring-boot-starter-quartz'
-//    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.springframework.boot:spring-boot-starter-validation'
     compile 'org.springframework.boot:spring-boot-starter-web'
@@ -112,8 +112,8 @@ dependencies {
 
     // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library]),json-path
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-//    testcompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-//    testcompile 'org.springframework.security:spring-security-test'
+//    testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    testCompile 'org.springframework.security:spring-security-test'
 }
 
 // 依赖管理

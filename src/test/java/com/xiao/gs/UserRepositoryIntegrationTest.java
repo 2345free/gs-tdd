@@ -18,11 +18,11 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void crudTest() {
         // save a couple of customers
-        userRepository.save(new User("Jack", "Bauer"));
-        userRepository.save(new User("Chloe", "O'Brian"));
-        userRepository.save(new User("Kim", "Bauer"));
-        userRepository.save(new User("David", "Palmer"));
-        userRepository.save(new User("Michelle", "Dessler"));
+        userRepository.save(new User("Bauer", "123"));
+        userRepository.save(new User("Chloe", "123"));
+        userRepository.save(new User("Bauer", "123"));
+        userRepository.save(new User("David", "123"));
+        userRepository.save(new User("Michelle Dessler", "123"));
 
         // fetch all customers
         log.info("Customers found with findAll():");
@@ -41,16 +41,11 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
                     log.info("");
                 });
 
-        // fetch customers by last name
-        log.info("User found with findByLastName('Bauer'):");
+        // fetch customers by name
+        log.info("User found with findByUsername('luoxx'):");
         log.info("--------------------------------------------");
-        userRepository.findByLastName("Bauer").forEach(bauer -> {
-            log.info(bauer.toString());
-        });
-        // for (User bauer : userRepository.findByLastName("Bauer")) {
-        // 	log.info(bauer.toString());
-        // }
-        log.info("");
+        User luoxx = userRepository.findByUsername("luoxx");
+        log.info(luoxx.toString());
     }
 
 }
