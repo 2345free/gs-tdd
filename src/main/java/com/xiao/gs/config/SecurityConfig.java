@@ -22,16 +22,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
+        // h2-console用到了iframe
         http.headers().frameOptions().sameOrigin();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
+                // 自定义登录认证(认证信息在内存)
                 .inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
-                .withUser("luoxx").password("123").roles("ADMIN")
-        ;
+                .withUser("luoxx").password("123").roles("ADMIN");
     }
 
     @Bean
@@ -40,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * boot2.x需要添加密码编解码器
+     * boot2.x 使用自定义登录认证时需要添加密码编解码器
      */
     private static class MyPasswordEncoder implements PasswordEncoder {
         @Override

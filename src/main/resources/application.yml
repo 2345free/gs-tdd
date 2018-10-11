@@ -26,10 +26,24 @@ spring:
     console:
       enabled: true
       path: /h2-console
-#  security:
-#    user:
-#      name: root
-#      password: 123
+  boot:
+  # spring boot admin server info
+    admin:
+      client:
+      # admin server's auth
+        username: boot-server
+        password: 123
+        url: http://localhost:8080
+        instance:
+          metadata:
+          # admin client's auth
+            user.name: luoxx
+            user.password: 123
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 #  main:
 #    banner-mode: off # 有bug,不能关
 logging:

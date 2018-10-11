@@ -8,6 +8,8 @@ plugins {
     id 'net.ltgt.apt' version '0.10'
     // 集成测试
     id 'org.unbroken-dome.test-sets' version '1.5.1'
+    // 生成Git信息
+    id "com.gorylenko.gradle-git-properties" version "1.5.1"
 }
 
 // gradle插件
@@ -47,6 +49,11 @@ sourceSets {
             srcDir "${buildDir}/generated-sources/java"
         }
     }
+}
+
+springBoot {
+    // 生成包含项目的坐标，名称和版本的构建信息
+    buildInfo()
 }
 
 // 项目依赖配置
