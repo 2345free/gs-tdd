@@ -39,6 +39,11 @@ spring:
           # admin client's auth
             user.name: luoxx
             user.password: 123
+            tags:
+              environment: test
+info:
+  tags:
+    environment: test
 management:
   endpoints:
     web:
