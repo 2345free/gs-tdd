@@ -26,7 +26,7 @@ public class ApiLogAspect {
 
         log.info("开始执行api:" + apiOperation.value());
 
-        Map<String, String> paramEntries = new HashMap<>(8);
+        Map<String, Object> paramEntries = new HashMap<>(8);
 
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         Assert.notNull(requestAttributes, "requestAttributes can't be null");

@@ -20,7 +20,7 @@ public class HttpRequestTest {
 
     @Test
     public void greetingShouldReturnDefaultMessage() {
-        assertThat(restTemplate.getForObject("/", String.class))
+        assertThat(restTemplate.getForObject("/greeting", String.class))
                 .contains("Hello World");
     }
 }
