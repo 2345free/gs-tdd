@@ -7,6 +7,7 @@ server:
 spring:
   application:
     name: test-driven-development
+  profiles.active: monitor
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,6 +27,16 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+#  main:
+#    banner-mode: off # 有bug,不能关
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+---
+spring:
+  profiles: monitor
   boot:
   # spring boot admin server info
     admin:
@@ -49,8 +60,3 @@ management:
     web:
       exposure:
         include: "*"
-#  main:
-#    banner-mode: off # 有bug,不能关
-logging:
-  level:
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
