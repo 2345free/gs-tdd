@@ -42,9 +42,9 @@ spring:
     admin:
       client:
       # admin server's auth
-        username: boot-server
+        username: boot-admin
         password: 123
-        url: http://localhost:8080
+        url: http://localhost:2018
         instance:
           metadata:
           # admin client's auth
@@ -60,3 +60,6 @@ management:
     web:
       exposure:
         include: "*"
+  info:
+    git:
+      mode: full

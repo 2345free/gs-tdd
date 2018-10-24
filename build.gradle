@@ -78,7 +78,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 
     // 监控
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'de.codecentric:spring-boot-admin-starter-client'
 
     // spring cloud
