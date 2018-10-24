@@ -16,12 +16,8 @@
 package com.xiao.gs.data.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * Base class to derive entity classes from.
@@ -29,12 +25,12 @@ import javax.persistence.MappedSuperclass;
  * @author luoxiaoxiao
  */
 @Data
-@EqualsAndHashCode
 @MappedSuperclass
 public class AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGenerator")
+    @SequenceGenerator(name = "mySeqGenerator", sequenceName = "mySequence", initialValue = 200, allocationSize = 10)
+    protected Long id;
 
 }

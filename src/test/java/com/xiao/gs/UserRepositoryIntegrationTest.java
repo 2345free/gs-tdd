@@ -20,9 +20,7 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
         // save a couple of customers
         userRepository.save(new User("Bauer", "123"));
         userRepository.save(new User("Chloe", "123"));
-        userRepository.save(new User("Bauer", "123"));
         userRepository.save(new User("David", "123"));
-        userRepository.save(new User("Michelle Dessler", "123"));
 
         // fetch all customers
         log.info("Customers found with findAll():");

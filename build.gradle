@@ -146,8 +146,8 @@ check.dependsOn integrationTest
 integrationTest.mustRunAfter test
 
 // 跳过测试
-integrationTest.enabled false
-test.enabled false
+integrationTest.enabled true
+test.enabled true
 
 // 开启测试缓存(执行成功的不再执行)
 project.integrationTest {

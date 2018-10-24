@@ -10,7 +10,7 @@ spring:
   profiles.active: monitor
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate.format_sql: true
@@ -42,10 +42,11 @@ spring:
     admin:
       client:
       # admin server's auth
-        username: boot-admin
-        password: 123
-        url: http://localhost:2018
+        username: ${sba.server.username:boot-admin}
+        password: ${sba.server.password:123}
+        url: ${sba.server.url:http://localhost:2018}
         instance:
+          serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://localhost:80}
           metadata:
           # admin client's auth
             user.name: luoxx

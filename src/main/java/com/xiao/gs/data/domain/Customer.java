@@ -36,10 +36,8 @@ import java.util.Set;
 public class Customer extends AbstractEntity {
 
     private String firstname, lastname;
-
     @Column(unique = true)
     private EmailAddress emailAddress;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Set<Address> addresses = new HashSet<>();
@@ -61,6 +59,11 @@ public class Customer extends AbstractEntity {
 
     protected Customer() {
 
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     /**
