@@ -49,8 +49,9 @@ spring:
           serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://localhost:80}
           metadata:
           # admin client's auth
-            user.name: luoxx
-            user.password: 123
+            user.name: sba
+            user.password: mgd@sba
+            user.role: MGD-ADMIN
             tags:
               environment: test
 info:
@@ -59,8 +60,14 @@ info:
 management:
   endpoints:
     web:
+      base-path: /mgd
       exposure:
         include: "*"
+  endpoint:
+      shutdown:
+        enabled: true
+      restart:
+        enabled: true
   info:
     git:
       mode: full
