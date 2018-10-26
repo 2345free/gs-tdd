@@ -41,6 +41,7 @@ spring:
   # spring boot admin server info
     admin:
       client:
+        period: 10000ms
       # admin server's auth
         username: ${sba.server.username:boot-admin}
         password: ${sba.server.password:123}
@@ -53,10 +54,18 @@ spring:
             user.password: mgd@sba
             user.role: MGD-ADMIN
             tags:
-              environment: test
+             # dev,test,prod
+              environment: ${sba.client.tags.environment:dev}
+  info:
+    build:
+      location: classpath:META-INF/build-info.properties
+    git:
+      location: classpath:git.properties
 info:
-  tags:
-    environment: test
+  # ext info
+  developer: luoxiaoxiao
+  github: https://github.com/2345free/gs-tdd
+
 management:
   endpoints:
     web:
