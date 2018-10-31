@@ -17,7 +17,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import java.security.Principal;
 
 /**
- * 解析自动以注解CurentUser,并赋值
+ * 自动解析并注入@CurentUser修饰的接口参数
  *
  * @author luoxiaoxiao
  */
