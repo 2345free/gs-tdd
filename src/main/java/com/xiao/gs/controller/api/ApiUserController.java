@@ -2,6 +2,7 @@ package com.xiao.gs.controller.api;
 
 import com.xiao.gs.bind.annotation.CurrentUser;
 import com.xiao.gs.data.domain.User;
+import com.xiao.gs.model.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +28,21 @@ public class ApiUserController {
     @ApiOperation(value = "根据id获取用户")
     @GetMapping(value = "/id")
     public ResponseEntity<User> getUserById(@ApiParam(value = "用户id") @RequestParam(value = "id") User user) {
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok(user);
+    }
+
+    @ApiOperation(value = "获取session中的user")
+    @GetMapping(value = "/session/get")
+    public ResponseEntity<LoginUser> session(@ApiIgnore @SessionAttribute final LoginUser user) {
+        return ResponseEntity.ok(user);
     }
 
     @ApiOperation(value = "更新session状态")
     @PutMapping(value = "/session-status/complete")
     public Boolean sessionStatus(@ApiIgnore SessionStatus status) {
         // 清空SessionAttributes中的内容
-        if (!status.isComplete()) {
-            status.setComplete();
-            return true;
-        }
-        return false;
+        status.setComplete();
+        return true;
     }
 
 }
