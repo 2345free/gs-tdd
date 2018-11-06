@@ -31,7 +31,7 @@ public class User extends AbstractEntity {
         this.password = password;
     }
 
-    @ApiModelProperty(value = "用户Id", required = true, allowableValues = "range[0,6]")
+    @ApiModelProperty(value = "用户Id", required = true, example = "1")
     @Override
     public Long getId() {
         return id;
