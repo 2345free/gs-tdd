@@ -20,11 +20,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
 /**
  * Abstract integration test to populate the database with dummy data.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GsTddApplication.class)
+@SpringBootTest(classes = GsTddApplication.class, webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc // 启动完整的上下文但是不启动服务器
 public abstract class AbstractIntegrationTest {
 
