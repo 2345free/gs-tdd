@@ -9,7 +9,6 @@ import org.springframework.cache.annotation.EnableCaching;
  *
  * @author luoxiaoxiao
  */
-@EnableCaching
 @SpringBootApplication
 public class GsTddApplication {
 

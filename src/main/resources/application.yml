@@ -12,7 +12,7 @@ logging:
 spring:
   application:
     name: test-driven-development
-#  profiles.active: monitor
+  profiles.active: redis
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -35,6 +35,21 @@ spring:
   cache:
     ehcache:
       config: classpath:cache/ehcache.xml
+
+---
+spring:
+  profiles: redis
+  redis:
+    cluster:
+      nodes: localhost:6379
+    jedis:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-wait: -1ms
+  cache:
+    redis:
+      cache-null-values: false
 
 ---
 spring:

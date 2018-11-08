@@ -4,12 +4,11 @@ plugins {
     id 'org.springframework.boot' version '2.0.5.RELEASE'
     // querydsl
     id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
-    // The Lombok Gradle Plugin (测试无效)
-    id 'net.ltgt.apt' version '0.10'
     // 集成测试
     id 'org.unbroken-dome.test-sets' version '1.5.1'
     // 生成Git信息
     id "com.gorylenko.gradle-git-properties" version "1.5.1"
+    id 'io.franzbecker.gradle-lombok' version '1.14'
 }
 
 // gradle插件
@@ -21,6 +20,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 // spring依赖管理插件(dependencyManagement)
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.franzbecker.gradle-lombok'
 
 group = 'com.xiao.gs'
 version = '1.0.0'
@@ -56,6 +56,11 @@ springBoot {
     buildInfo()
 }
 
+lombok {
+    version = "$lombokVersion"
+    sha256 = ""
+}
+
 // 项目依赖配置
 dependencies {
 
@@ -67,7 +72,8 @@ dependencies {
     // 官方介绍: Querydsl是一个框架，可以构建静态类型的SQL类查询。它们不是将查询编写为内联字符串或将它们外部化为XML文件，而是可以通过Querydsl等流畅的API构建。
     compile 'com.querydsl:querydsl-jpa'
 //    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
-//    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'redis.clients:jedis'
 //    compile 'org.springframework.boot:spring-boot-starter-data-rest'
 //    compile 'org.springframework.boot:spring-boot-starter-jooq'
 //    compile 'org.springframework.boot:spring-boot-starter-mail'
@@ -112,8 +118,6 @@ dependencies {
     // #####################################################新依赖加上面###################################################
     // 代码插件
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
-    // 代码插件的注解处理,避免警告: Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     // lombok使用compileOnly有时会报找不到符号@Data和程序包lombok不存在,是这个插件的一个小bug,但是使用compile就不会有问题
     compile "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"

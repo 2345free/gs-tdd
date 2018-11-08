@@ -18,6 +18,7 @@ package com.xiao.gs.data.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Base class to derive entity classes from.
@@ -26,7 +27,7 @@ import javax.persistence.*;
  */
 @Data
 @MappedSuperclass
-public class AbstractEntity {
+public class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGenerator")
