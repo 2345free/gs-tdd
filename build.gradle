@@ -85,7 +85,8 @@ dependencies {
 
     // 缓存
     compile 'org.springframework.boot:spring-boot-starter-cache'
-    compile "net.sf.ehcache:ehcache:$ehcacheVersion"
+    compile "net.sf.ehcache:ehcache"
+    compile "com.github.ben-manes.caffeine:caffeine"
 
     // 监控
     compile 'de.codecentric:spring-boot-admin-starter-client'
