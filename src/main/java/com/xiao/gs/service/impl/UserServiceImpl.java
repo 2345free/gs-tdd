@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Cacheable(cacheNames = "user", key = "#id")
+    @Cacheable(cacheNames = "caffeine", key = "#id")
     @Override
     public User getById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);

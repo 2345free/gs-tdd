@@ -12,18 +12,7 @@
         <terracotta/>
     </defaultCache>
 
-    <cache name="test"
-           maxEntriesLocalHeap="10000"
-           maxEntriesLocalDisk="1000"
-           diskSpoolBufferSizeMB="20"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="600"
-           memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off">
-        <persistence strategy="localTempSwap"/>
-    </cache>
-
-    <cache name="user"
+    <cache name="ehcache"
            maxEntriesLocalHeap="10000"
            maxEntriesLocalDisk="1000"
            diskSpoolBufferSizeMB="20"

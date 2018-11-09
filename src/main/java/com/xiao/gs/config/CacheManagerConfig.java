@@ -47,10 +47,10 @@ public class CacheManagerConfig {
     public CacheManager compositeCacheManager(RedisCacheManager redisCacheManager) {
         CompositeCacheManager cacheManager = new CompositeCacheManager();
         cacheManager.setCacheManagers(Arrays.asList(
-                simpleCacheManager(),
                 ehCacheCacheManager(),
                 caffeineCacheManager(),
-                redisCacheManager
+                redisCacheManager,
+                simpleCacheManager()
         ));
         cacheManager.setFallbackToNoOpCache(true);
         return cacheManager;
@@ -60,9 +60,7 @@ public class CacheManagerConfig {
     public SimpleCacheManager simpleCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         Set<Cache> caches = new HashSet<>();
-        caches.add(new ConcurrentMapCache("map1", new ConcurrentHashMap<>(500), false));
-        caches.add(new ConcurrentMapCache("map2", false));
-        caches.add(new ConcurrentMapCache("map3"));
+        caches.add(new ConcurrentMapCache("map", new ConcurrentHashMap<>(500), false));
         cacheManager.setCaches(caches);
         return cacheManager;
     }
@@ -72,11 +70,21 @@ public class CacheManagerConfig {
         /*
          *  使用默认配置: return RedisCacheManager.create(redisConnectionFactory)
          */
+
+        // 设置一个初始化的缓存空间set集合
+        Set<String> cacheNames = new HashSet<>();
+        cacheNames.add("redis");
+
+        // 对每个缓存空间应用不同的配置
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>(1);
+        RedisCacheConfiguration cacheConfig = defaultCacheConfig();
+        cacheConfigurations.put("redis", cacheConfig.entryTtl(Duration.ofSeconds(120)));
+
         return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(defaultCacheConfig()
+                .cacheDefaults(cacheConfig
                         .entryTtl(Duration.ofSeconds(1))
                         .disableCachingNullValues())
+                .initialCacheNames(cacheNames)
                 .withInitialCacheConfigurations(cacheConfigurations)
                 .transactionAware()
                 .build();
@@ -91,7 +99,7 @@ public class CacheManagerConfig {
     @Bean
     public CaffeineCacheManager caffeineCacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-        cacheManager.setCacheNames(Arrays.asList("caffeine1", "caffeine2"));
+        cacheManager.setCacheNames(Arrays.asList("caffeine", "caffeine2"));
         return cacheManager;
     }
 

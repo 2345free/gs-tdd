@@ -8,6 +8,11 @@ logging:
   path: logs/
   level:
     root: info
+    # 打印请求信息
+    org.apache.coyote.http11.Http11InputBuffer: debug
+    org.springframework.cache: trace
+    net.sf: trace
+    com.github.benmanes: trace
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 spring:
   application:
@@ -33,6 +38,7 @@ spring:
       enabled: true
       path: /h2-console
   cache:
+#    cache-names: map,ehcache,redis,caffeine
     ehcache:
       config: classpath:cache/ehcache.xml
 
@@ -40,15 +46,22 @@ spring:
 spring:
   profiles: redis
   redis:
-#    cluster:
-#      nodes: localhost:6379
-    jedis:
-      pool:
-        min-idle: 0
-        max-active: 8
-        max-wait: -1ms
     host: localhost
     port: 6379
+    database: 0
+    # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
+    timeout: 60s
+    # 连接池配置，2.0中直接使用jedis或者lettuce配置连接池
+    jedis:
+      pool:
+        # 最大空闲连接数
+        max-idle: 500
+        # 最小空闲连接数
+        min-idle: 50
+        # 等待可用连接的最大时间，负数为不限制
+        max-wait:  -1s
+        # 最大活跃连接数，负数为不限制
+        max-active: -1
   cache:
     redis:
       cache-null-values: false
