@@ -9,7 +9,7 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -34,19 +34,22 @@ public class RedisConfig {
         return new JedisConnectionFactory(new RedisStandaloneConfiguration(redisProperties.getHost(), redisProperties.getPort()));
     }
 
+    /**
+     * @param connectionFactory 作为参数传进来而不是调用方法是为了方便切换到redis集群模式(启用RedisClusterConfig即可)
+     */
     @Bean
-    public RedisTemplate<String, ?> redisTemplate() {
+    public RedisTemplate<String, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, ?> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
+        template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(keySerializer());
         template.setValueSerializer(valueSerializer());
         return template;
     }
 
     @Bean
-    public StringRedisTemplate stringRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
         StringRedisTemplate template = new StringRedisTemplate();
-        template.setConnectionFactory(jedisConnectionFactory);
+        template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(keySerializer());
         template.setValueSerializer(valueSerializer());
         return template;
@@ -59,7 +62,7 @@ public class RedisConfig {
 
     @Bean
     public RedisSerializer valueSerializer() {
-        return new GenericJackson2JsonRedisSerializer();
+        return new JdkSerializationRedisSerializer();
     }
 
 }

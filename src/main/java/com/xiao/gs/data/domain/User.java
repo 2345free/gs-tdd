@@ -16,6 +16,8 @@ import javax.persistence.Entity;
 @Entity
 public class User extends AbstractEntity {
 
+    public static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "用户名")
     @Column(unique = true)
     private String username;
