@@ -2,13 +2,11 @@ package com.xiao.gs.controller.api;
 
 import com.xiao.gs.bind.annotation.CurrentUser;
 import com.xiao.gs.data.domain.User;
-import com.xiao.gs.model.JsonResult;
 import com.xiao.gs.model.LoginUser;
 import com.xiao.gs.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -28,15 +26,6 @@ public class ApiUserController {
 
     public ApiUserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @ApiOperation(value = "测试缓存")
-    @Cacheable(value = "test")
-    @GetMapping("/time-millis")
-    public ResponseEntity<JsonResult> getTimeMillis() {
-        Long millis = System.currentTimeMillis();
-        log.info("当前系统时间: {}", millis);
-        return ResponseEntity.ok(JsonResult.success(millis));
     }
 
     @ApiOperation(value = "根据id获取用户(从数据库获取,带缓存)")
