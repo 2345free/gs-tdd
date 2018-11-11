@@ -61,12 +61,16 @@ lombok {
     sha256 = ""
 }
 
+configurations {
+    compile.exclude module: 'spring-boot-starter-logging'
+}
 // 项目依赖配置
 dependencies {
 
 //    compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-aop'
-//    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    compile 'org.springframework.boot:spring-boot-starter-log4j2'
     // 使用jpa作为数据访问层框架
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     // 官方介绍: Querydsl是一个框架，可以构建静态类型的SQL类查询。它们不是将查询编写为内联字符串或将它们外部化为XML文件，而是可以通过Querydsl等流畅的API构建。
