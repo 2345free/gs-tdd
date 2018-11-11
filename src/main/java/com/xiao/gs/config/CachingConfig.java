@@ -31,11 +31,11 @@ import static org.springframework.data.redis.cache.RedisCacheConfiguration.defau
 @EnableCaching
 @Configuration
 @EnableConfigurationProperties(CacheProperties.class)
-public class CacheManagerConfig {
+public class CachingConfig {
 
     private final CacheProperties cacheProperties;
 
-    public CacheManagerConfig(CacheProperties cacheProperties) {
+    public CachingConfig(CacheProperties cacheProperties) {
         this.cacheProperties = cacheProperties;
     }
 
