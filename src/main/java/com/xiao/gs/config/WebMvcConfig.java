@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSpringDataWebSupport
-@EnableJpaRepositories(basePackages = "com.xiao.gs.data.repository")
+@EnableJpaRepositories(basePackages = "com.xiao.gs.data.jpa.repository")
 @ComponentScan(basePackages = "com.xiao.gs.controller")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class WebMvcConfig implements WebMvcConfigurer {

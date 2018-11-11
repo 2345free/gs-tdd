@@ -1,4 +1,4 @@
-package com.xiao.gs.data.domain;
+package com.xiao.gs.data.jpa.domain;
 
 import lombok.Data;
 

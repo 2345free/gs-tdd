@@ -1,7 +1,7 @@
 package com.xiao.gs.service.impl;
 
-import com.xiao.gs.data.domain.User;
-import com.xiao.gs.data.repository.UserRepository;
+import com.xiao.gs.data.jpa.domain.User;
+import com.xiao.gs.data.jpa.repository.UserRepository;
 import com.xiao.gs.service.UserService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

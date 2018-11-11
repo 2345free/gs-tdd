@@ -1,8 +1,8 @@
 package com.xiao.gs.bind.support;
 
 import com.xiao.gs.bind.annotation.CurrentUser;
-import com.xiao.gs.data.domain.User;
-import com.xiao.gs.data.repository.UserRepository;
+import com.xiao.gs.data.jpa.domain.User;
+import com.xiao.gs.data.jpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;

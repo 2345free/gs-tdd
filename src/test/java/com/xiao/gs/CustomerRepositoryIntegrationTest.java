@@ -16,10 +16,10 @@
 package com.xiao.gs;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.xiao.gs.data.domain.Customer;
-import com.xiao.gs.data.domain.EmailAddress;
-import com.xiao.gs.data.domain.QCustomer;
-import com.xiao.gs.data.repository.CustomerRepository;
+import com.xiao.gs.data.jpa.domain.Customer;
+import com.xiao.gs.data.jpa.domain.EmailAddress;
+import com.xiao.gs.data.jpa.domain.QCustomer;
+import com.xiao.gs.data.jpa.repository.CustomerRepository;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

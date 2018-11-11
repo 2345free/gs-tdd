@@ -1,4 +1,4 @@
-package com.xiao.gs.data.domain;
+package com.xiao.gs.data.jpa.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

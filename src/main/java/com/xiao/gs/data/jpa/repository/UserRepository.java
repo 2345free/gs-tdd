@@ -1,6 +1,6 @@
-package com.xiao.gs.data.repository;
+package com.xiao.gs.data.jpa.repository;
 
-import com.xiao.gs.data.domain.User;
+import com.xiao.gs.data.jpa.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {

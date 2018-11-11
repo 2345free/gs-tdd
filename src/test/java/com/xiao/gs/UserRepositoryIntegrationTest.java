@@ -1,7 +1,7 @@
 package com.xiao.gs;
 
-import com.xiao.gs.data.domain.User;
-import com.xiao.gs.data.repository.UserRepository;
+import com.xiao.gs.data.jpa.domain.User;
+import com.xiao.gs.data.jpa.repository.UserRepository;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

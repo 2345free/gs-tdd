@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xiao.gs.data.repository;
+package com.xiao.gs.data.jpa.repository;
 
-import com.xiao.gs.data.domain.Customer;
-import com.xiao.gs.data.domain.EmailAddress;
+import com.xiao.gs.data.jpa.domain.Customer;
+import com.xiao.gs.data.jpa.domain.EmailAddress;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.Repository;

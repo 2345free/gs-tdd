@@ -1,7 +1,7 @@
 package com.xiao.gs.controller.api;
 
 import com.xiao.gs.bind.annotation.CurrentUser;
-import com.xiao.gs.data.domain.User;
+import com.xiao.gs.data.jpa.domain.User;
 import com.xiao.gs.model.LoginUser;
 import com.xiao.gs.service.UserService;
 import io.swagger.annotations.ApiOperation;
