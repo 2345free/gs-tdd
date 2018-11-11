@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xiao.gs;
+package com.xiao.gs.data.jpa.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.xiao.gs.AbstractIntegrationTest;
 import com.xiao.gs.data.jpa.domain.Customer;
 import com.xiao.gs.data.jpa.domain.EmailAddress;
 import com.xiao.gs.data.jpa.domain.QCustomer;
-import com.xiao.gs.data.jpa.repository.CustomerRepository;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
