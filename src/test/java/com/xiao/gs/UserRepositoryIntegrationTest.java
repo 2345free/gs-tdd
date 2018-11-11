@@ -18,9 +18,9 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void crudTest() {
         // save a couple of customers
-        userRepository.save(new User("Bauer", "123"));
-        userRepository.save(new User("Chloe", "123"));
-        userRepository.save(new User("David", "123"));
+        userRepository.save(User.builder().username("Bauer").password("123").build());
+        userRepository.save(User.builder().username("Chloe").password("123").build());
+        userRepository.save(User.builder().username("David").password("123").build());
 
         // fetch all customers
         log.info("Customers found with findAll():");

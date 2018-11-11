@@ -15,6 +15,7 @@
  */
 package com.xiao.gs.data.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.util.Assert;
 
@@ -28,6 +29,7 @@ import java.util.regex.Pattern;
  * @author luoxiaoxiao
  */
 @Data
+@Builder
 @Embeddable
 public class EmailAddress {
 

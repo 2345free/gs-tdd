@@ -15,9 +15,7 @@
  */
 package com.xiao.gs.data.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -30,32 +28,22 @@ import java.util.Set;
  * @author luoxiaoxiao
  */
 @Data
+@Builder
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 @Entity
 public class Customer extends AbstractEntity {
 
     private String firstname, lastname;
+
     @Column(unique = true)
     private EmailAddress emailAddress;
+
+    @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Set<Address> addresses = new HashSet<>();
-
-    /**
-     * Creates a new {@link Customer} from the given firstname and lastname.
-     *
-     * @param firstname must not be {@literal null} or empty.
-     * @param lastname  must not be {@literal null} or empty.
-     */
-    public Customer(String firstname, String lastname) {
-
-        Assert.hasText(firstname, "firstname can't be null");
-        Assert.hasText(lastname, "lastname can't be null");
-
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
 
     protected Customer() {
 

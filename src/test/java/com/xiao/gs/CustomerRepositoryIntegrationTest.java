@@ -54,11 +54,7 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void savesNewCustomer() {
-
-        Customer stefan = new Customer("Stefan", "Lassard");
-        stefan.setEmailAddress(new EmailAddress("Stefan@gmail.com"));
-        Customer result = repository.save(stefan);
-
+        Customer result = repository.save(Customer.builder().firstname("Stefan").lastname("Lassard").emailAddress(new EmailAddress("Stefan@gmail.com")).build());
         assertThat(result, is(notNullValue()));
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Stefan"));

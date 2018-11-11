@@ -15,8 +15,10 @@
  */
 package com.xiao.gs.data.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import javax.persistence.Entity;
@@ -27,7 +29,9 @@ import javax.persistence.Entity;
  * @author luoxiaoxiao
  */
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 @Entity
 public class Address extends AbstractEntity {
 
@@ -49,10 +53,6 @@ public class Address extends AbstractEntity {
         this.street = street;
         this.city = city;
         this.country = country;
-    }
-
-    public Address() {
-
     }
 
     /**

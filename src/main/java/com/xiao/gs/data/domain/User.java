@@ -2,6 +2,7 @@ package com.xiao.gs.data.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 
 @ApiModel(description = "用户")
 @Data
+@Builder
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Entity
