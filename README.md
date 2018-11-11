@@ -2,6 +2,12 @@
 
 ### 测试驱动开发模式
 * gradle构建工具详解
-* JPA使用
-* H2内存数据库使用
+* JPA集成
+* H2内存数据库集成
 * MocMvc集成测试
+* Swagger集成
+* Spring-security集成
+* Spring-boot-admin监控集成
+* Redis集成
+* 缓存集成
+* Elasticsearch集成
