@@ -4,7 +4,7 @@ import com.xiao.gs.AbstractIntegrationTest;
 import com.xiao.gs.data.elasticsearch.document.Conference;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
@@ -24,7 +24,7 @@ public class ElasticsearchOperationsTest extends AbstractIntegrationTest {
     private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
-    private ElasticsearchOperations operations;
+    private ElasticsearchTemplate template;
     @Autowired
     private ConferenceRepository repository;
 
@@ -36,7 +36,7 @@ public class ElasticsearchOperationsTest extends AbstractIntegrationTest {
         CriteriaQuery query = new CriteriaQuery(
                 new Criteria("keywords").contains(expectedWord).and(new Criteria("date").greaterThanEqual(expectedDate)));
 
-        List<Conference> result = operations.queryForList(query, Conference.class);
+        List<Conference> result = template.queryForList(query, Conference.class);
 
         assertThat(result, hasSize(3));
 
@@ -53,14 +53,14 @@ public class ElasticsearchOperationsTest extends AbstractIntegrationTest {
         String range = "330mi"; // or 530km
         CriteriaQuery query = new CriteriaQuery(new Criteria("location").within(startLocation, range));
 
-        List<Conference> result = operations.queryForList(query, Conference.class);
+        List<Conference> result = template.queryForList(query, Conference.class);
 
         assertThat(result, hasSize(2));
     }
 
     @PreDestroy
     public void deleteIndex() {
-        operations.deleteIndex(Conference.class);
+        template.deleteIndex(Conference.class);
     }
 
     @PostConstruct
@@ -68,7 +68,7 @@ public class ElasticsearchOperationsTest extends AbstractIntegrationTest {
 
         // Remove all documents
         repository.deleteAll();
-        operations.refresh(Conference.class);
+        template.refresh(Conference.class);
 
         // Save data sample
         repository.save(Conference.builder().date("2014-11-06").name("Spring eXchange 2014 - London")
