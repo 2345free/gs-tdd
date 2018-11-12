@@ -1,9 +1,12 @@
 package com.xiao.gs.config;
 
+import com.xiao.gs.util.Symbols;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.NodeClientFactoryBean;
@@ -18,8 +21,15 @@ import java.util.UUID;
  * @author luoxiaoxiao
  */
 @Configuration
+@EnableConfigurationProperties(ElasticsearchProperties.class)
 @EnableElasticsearchRepositories(basePackages = "com.xiao.gs.data.elasticsearch.repository")
 public class ElasticsearchConfig {
+
+    private final ElasticsearchProperties esProperties;
+
+    public ElasticsearchConfig(ElasticsearchProperties esProperties) {
+        this.esProperties = esProperties;
+    }
 
     /**
      * Embedded Node Client
@@ -40,10 +50,13 @@ public class ElasticsearchConfig {
     @Bean(destroyMethod = "close")
     public TransportClient transportClient() throws UnknownHostException {
         TransportClient client = new PreBuiltTransportClient(Settings.builder()
-                .put("cluster.name", "elasticsearch")
-//                .put("client.transport.sniff", true) // 适用于集群节点
+                .put("cluster.name", esProperties.getClusterName())
+                .put(esProperties.getProperties())
                 .build());
-        client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
+        for (String serverInfoStr : esProperties.getClusterNodes().split(Symbols.COMMA)) {
+            String[] serverInfo = serverInfoStr.split(Symbols.COLON);
+            client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(serverInfo[0]), Integer.parseInt(serverInfo[1])));
+        }
         return client;
     }
 

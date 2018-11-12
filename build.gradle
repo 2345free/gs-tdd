@@ -120,6 +120,11 @@ dependencies {
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
     compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
 
+    // 工具包
+    compile 'org.apache.commons:commons-lang3'
+    compile 'commons-beanutils:commons-beanutils:1.9.3'
+    compile 'commons-validator:commons-validator:1.6'
+
     // #####################################################新依赖加上面###################################################
     // 代码插件
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor'

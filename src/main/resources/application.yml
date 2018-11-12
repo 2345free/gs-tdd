@@ -65,6 +65,12 @@ spring:
   cache:
     redis:
       cache-null-values: false
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: localhost:9300
+      properties:
+        client.transport.sniff: false # 适用于集群节点
 
 ---
 spring:
