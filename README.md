@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/2345free/gs-tdd.svg?style=svg)](https://circleci.com/gh/2345free/gs-tdd)
+[![codecov](https://codecov.io/gh/2345free/gs-tdd/branch/master/graph/badge.svg)](https://codecov.io/gh/2345free/gs-tdd)
 
 ### 测试驱动开发模式
 * gradle构建工具详解
