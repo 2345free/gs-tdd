@@ -21,6 +21,8 @@ apply plugin: 'org.springframework.boot'
 // spring依赖管理插件(dependencyManagement)
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'io.franzbecker.gradle-lombok'
+// 代码覆盖率报告插件
+apply plugin: 'jacoco'
 
 group = 'com.xiao.gs'
 version = '1.0.0'
@@ -160,12 +162,17 @@ testSets {
 }
 
 // build 时自动执行junit测试
-check.dependsOn integrationTest
+build.dependsOn integrationTest
 integrationTest.mustRunAfter test
 
-// 跳过测试
+test.useJUnit()
+
 integrationTest.enabled true
 test.enabled true
+
+test {
+    exclude "**/ElasticsearchOperationsTest.class"
+}
 
 // 开启测试缓存(执行成功的不再执行)
 project.integrationTest {
@@ -174,6 +181,27 @@ project.integrationTest {
 
 tasks.withType(Test) {
     reports.html.setDestination(file("$reporting.baseDir/$name"))
+}
+
+// 代码覆盖率报告任务
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    allprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    reports {
+        xml.enabled = true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled = false
+        csv.enabled = false
+    }
+}
+
+build.dependsOn codeCoverageReport {
+    subprojects*.test
+    subprojects*.integrationTest
 }
 
 // 测试总结:
