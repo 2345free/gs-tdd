@@ -53,6 +53,13 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = false
+    }
+}
+
 springBoot {
     // 生成包含项目的坐标，名称和版本的构建信息
     buildInfo()
