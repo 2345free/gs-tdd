@@ -11,8 +11,8 @@ logging:
     # 打印请求信息
     org.apache.coyote.http11.Http11InputBuffer: debug
     org.springframework.cache: trace
-    net.sf: trace
-    com.github.benmanes: trace
+    net.sf.ehcache: trace
+    com.github.benmanes.caffeine: trace
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 spring:
   application:

@@ -56,7 +56,7 @@ sourceSets {
 idea {
     module {
         downloadSources = true
-        downloadJavadoc = false
+        downloadJavadoc = true
     }
 }
 
@@ -172,10 +172,10 @@ testSets {
 build.dependsOn integrationTest
 integrationTest.mustRunAfter test
 
-test.useJUnit()
-
 integrationTest.enabled true
 test.enabled true
+
+test.useJUnit()
 
 test {
     exclude "**/ElasticsearchOperationsTest.class"
@@ -187,7 +187,7 @@ project.integrationTest {
 }
 
 tasks.withType(Test) {
-    reports.html.setDestination(file("$reporting.baseDir/$name"))
+    reports.html.destination(file("$reporting.baseDir/$name"))
 }
 
 // 代码覆盖率报告任务
