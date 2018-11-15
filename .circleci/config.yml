@@ -39,8 +39,7 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
         
       # run tests!
-      - run: chmod +x gradlew
-      - run: gradlew clean build
-      - run: gradlew check
-      - run: gradlew codeCoverageReport
+      - run: gradle clean build
+      - run: gradle check
+      - run: gradle codeCoverageReport
       - run: bash <(curl -s https://codecov.io/bash)
