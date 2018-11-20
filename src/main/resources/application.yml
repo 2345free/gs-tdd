@@ -17,7 +17,7 @@ logging:
 spring:
   application:
     name: test-driven-development
-  profiles.active: redis
+  profiles.active: h2,swagger,redis,cache
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -26,7 +26,16 @@ spring:
       hibernate.format_sql: true
       # 如果使用mysql,jpa生成表默认是myisam引擎,使用此属性可以更改默认引擎
       hibernate.dialect.storage_engine: innodb
-#    database-platform:
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: localhost:9300
+      properties:
+        client.transport.sniff: false # 适用于集群节点
+
+---
+spring:
+  profiles: h2
   datasource:
     continue-on-error: true
     driver-class-name: org.h2.Driver
@@ -37,10 +46,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
-  cache:
-#    cache-names: map,ehcache,redis,caffeine
-    ehcache:
-      config: classpath:cache/ehcache.xml
 
 ---
 spring:
@@ -62,15 +67,15 @@ spring:
         max-wait:  -1s
         # 最大活跃连接数，负数为不限制
         max-active: -1
+
+---
+spring:
+  profiles: cache
   cache:
     redis:
       cache-null-values: false
-  data:
-    elasticsearch:
-      cluster-name: elasticsearch
-      cluster-nodes: localhost:9300
-      properties:
-        client.transport.sniff: false # 适用于集群节点
+    ehcache:
+      config: classpath:cache/ehcache.xml
 
 ---
 spring:
