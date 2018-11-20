@@ -66,7 +66,7 @@ springBoot {
 }
 
 lombok {
-    version = "$lombokVersion"
+    version = "${lombok.version}"
     sha256 = ""
 }
 
@@ -79,8 +79,6 @@ dependencies {
 //    compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-    compile "org.elasticsearch.plugin:transport-netty3-client:$elasticsearchVersion"
-    compile 'org.springframework.boot:spring-boot-starter-web-services'
 
 //    compile 'org.springframework.boot:spring-boot-starter-log4j2'
     // 使用jpa作为数据访问层框架
@@ -123,11 +121,11 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
 
     // 数据库迁移工具
-    compile "org.flywaydb:flyway-core:$flywayVersion"
+    compile "org.flywaydb:flyway-core"
 
     // api文档生成工具
-    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
-    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
+    compile "io.springfox:springfox-swagger2:${springfoxSwaggerVersion}"
+    compile "io.springfox:springfox-swagger-ui:${springfoxSwaggerVersion}"
 
     // 工具包
     compile 'org.apache.commons:commons-lang3'
@@ -138,10 +136,10 @@ dependencies {
     // 代码插件
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
     // lombok使用compileOnly有时会报找不到符号@Data和程序包lombok不存在,是这个插件的一个小bug,但是使用compile就不会有问题
-    compile "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    testCompile "org.projectlombok:lombok:$lombokVersion"
-    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compile "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+    testCompile "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
 
     // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library]),json-path
     testCompile 'org.springframework.boot:spring-boot-starter-test'
