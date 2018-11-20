@@ -10,6 +10,7 @@
 - Spring-security集成
 - Spring-boot-admin监控集成
 - Redis集成
-  - redis消息系统(发布订阅)集成
+  - Redis消息系统(发布订阅)集成
+  - Redis存储库集成
 - 缓存集成
 - Elasticsearch集成
