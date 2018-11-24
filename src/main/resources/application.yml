@@ -1,15 +1,16 @@
 server:
- servlet:
-  context-path: /
- port: 80
- ssl:
-   enabled: false
+  servlet:
+    context-path: /
+#  address: 192.168.3.30
+  port: 80
+  ssl:
+    enabled: false
 logging:
   path: logs/
   level:
     root: info
     # 打印请求信息
-    org.apache.coyote.http11.Http11InputBuffer: debug
+    org.apache.coyote.http11.Http11InputBuffer: off
     org.springframework.cache: trace
     net.sf.ehcache: trace
     com.github.benmanes.caffeine: trace
@@ -90,7 +91,7 @@ spring:
         password: ${sba.server.password:123}
         url: ${sba.server.url:http://localhost:2018}
         instance:
-          serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://localhost:80}
+          serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://${server.address:localhost}:80}
           metadata:
           # admin client's auth
             user.name: sba
