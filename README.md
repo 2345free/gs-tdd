@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/2345free/gs-tdd.svg?style=svg)](https://circleci.com/gh/2345free/gs-tdd)
 [![codecov](https://codecov.io/gh/2345free/gs-tdd/branch/master/graph/badge.svg)](https://codecov.io/gh/2345free/gs-tdd)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee3c29b4164d4ce090170fa1da5a80dc)](https://www.codacy.com/app/2345free/gs-tdd?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=2345free/gs-tdd&amp;utm_campaign=Badge_Grade)
 
 ### 测试驱动开发模式
 - gradle构建工具详解
