@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91d774efdae04789a29c595bd2e72a15)](https://app.codacy.com/app/2345free/gs-tdd?utm_source=github.com&utm_medium=referral&utm_content=2345free/gs-tdd&utm_campaign=Badge_Grade_Settings)
 [![CircleCI](https://circleci.com/gh/2345free/gs-tdd.svg?style=svg)](https://circleci.com/gh/2345free/gs-tdd)
 [![codecov](https://codecov.io/gh/2345free/gs-tdd/branch/master/graph/badge.svg)](https://codecov.io/gh/2345free/gs-tdd)
 
