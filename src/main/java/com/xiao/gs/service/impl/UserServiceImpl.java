@@ -4,6 +4,8 @@ import com.xiao.gs.data.jpa.domain.User;
 import com.xiao.gs.data.jpa.repository.UserRepository;
 import com.xiao.gs.service.UserService;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -25,6 +27,11 @@ public class UserServiceImpl implements UserService {
     public User getById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         return optionalUser.orElse(null);
+    }
+
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
 }

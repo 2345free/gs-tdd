@@ -1,9 +1,9 @@
 package com.xiao.gs.config;
 
 import com.google.common.collect.Lists;
+import com.xiao.gs.bind.convert.ExcelHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -13,7 +13,8 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
 import java.util.List;
 
-import static com.xiao.gs.bind.convert.ExcelHttpMessageConverter.EXCEL_MEDIA_TYPE;
+import static com.xiao.gs.bind.convert.ExcelHttpMessageConverter.APPLICATION_EXCEL;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * @author luoxiaoxiao
@@ -41,9 +42,14 @@ public class ExportConfig implements WebMvcConfigurer {
                 .favorParameter(true)
                 .parameterName("format")
                 .ignoreAcceptHeader(true)
-                .defaultContentType(MediaType.APPLICATION_JSON)
-                .mediaType("json", MediaType.APPLICATION_JSON)
-                .mediaType("xls", EXCEL_MEDIA_TYPE);
+                .defaultContentType(APPLICATION_JSON)
+                .mediaType("json", APPLICATION_JSON)
+                .mediaType("xls", APPLICATION_EXCEL);
+    }
+
+    @Bean
+    public ExcelHttpMessageConverter excelHttpMessageConverter() {
+        return new ExcelHttpMessageConverter();
     }
 
 }

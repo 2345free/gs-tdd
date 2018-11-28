@@ -134,8 +134,10 @@ dependencies {
 
     // excel / pdf
     compile "com.github.librepdf:openpdf:$openpdfVersion"
-    compile "cn.afterturn:easypoi:$easypoiVersion@pom"
-    compile "org.apache.poi:poi-ooxml:$poiVersion"
+    compile "cn.afterturn:easypoi-base:$easypoiVersion"
+
+    // 分页插件
+    compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
 
     // #####################################################新依赖加上面###################################################
     // 代码插件

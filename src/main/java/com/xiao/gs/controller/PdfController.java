@@ -17,7 +17,7 @@ import java.util.List;
 public class PdfController {
 
     @GetMapping(value = "/word")
-    public String exprotWordPdf(@RequestParam("words") List<String> words, ModelMap model) {
+    public String exportWordPdf(@RequestParam("words") List<String> words, ModelMap model) {
         model.put("words", words);
         return "wordPdfView";
     }

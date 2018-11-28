@@ -1,16 +1,26 @@
 package com.xiao.gs.controller.api;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiao.gs.bind.annotation.CurrentUser;
 import com.xiao.gs.data.jpa.domain.User;
+import com.xiao.gs.model.JsonResult;
 import com.xiao.gs.model.LoginUser;
 import com.xiao.gs.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.ArrayList;
+
+import static org.springframework.data.domain.Sort.Direction.ASC;
 
 /**
  * @author luoxiaoxiao
@@ -19,13 +29,21 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 @RestController
 @SessionAttributes(types = User.class)
-@RequestMapping("/api/user")
+@RequestMapping(value = "/api/user")
 public class ApiUserController {
 
     private final UserService userService;
 
     public ApiUserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @ApiOperation(value = "获取用户列表")
+    @GetMapping(value = {"", "/"})
+    public JsonResult exportUser(@PageableDefault(sort = {"id"}, direction = ASC) Pageable pageable) {
+        PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
+        Page<User> userPage = userService.findAll(pageable);
+        return JsonResult.success(new PageInfo<>(new ArrayList<>(userPage.getContent())));
     }
 
     @ApiOperation(value = "根据id获取用户(从数据库获取,带缓存)")

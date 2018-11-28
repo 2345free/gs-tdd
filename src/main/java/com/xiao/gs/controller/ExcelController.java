@@ -20,10 +20,9 @@ public class ExcelController {
     }
 
     @GetMapping("/user")
-    public String exprotUserExcel(ModelMap model) {
+    public String exportUserExcel(ModelMap model) {
         model.put("users", userRepository.findAll());
         return "userExcelView";
     }
-
 
 }
