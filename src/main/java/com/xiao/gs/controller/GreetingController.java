@@ -19,9 +19,9 @@ public class GreetingController {
         this.greetingService = greetingService;
     }
 
+    @ResponseBody
     @GetMapping("/greeting")
-    public @ResponseBody
-    String greeting() {
+    public String greeting() {
         return greetingService.greet();
     }
 }

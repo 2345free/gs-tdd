@@ -41,14 +41,14 @@ repositories {
 // querydsl代码生成目录配置
 querydsl {
     jpa = true
-    querydslSourcesDir = "${buildDir}/generated-sources/java"
+    querydslSourcesDir = "$buildDir/generated-sources/java"
 }
 
 // querydsl生成的代码加到编译路径
 sourceSets {
     main {
         java {
-            srcDir "${buildDir}/generated-sources/java"
+            srcDir "$buildDir/generated-sources/java"
         }
     }
 }
@@ -124,8 +124,8 @@ dependencies {
     compile "org.flywaydb:flyway-core"
 
     // api文档生成工具
-    compile "io.springfox:springfox-swagger2:${springfoxSwaggerVersion}"
-    compile "io.springfox:springfox-swagger-ui:${springfoxSwaggerVersion}"
+    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
+    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
 
     // 工具包
     compile 'org.apache.commons:commons-lang3'
@@ -133,7 +133,9 @@ dependencies {
     compile 'commons-validator:commons-validator:1.6'
 
     // excel / pdf
-    compile "com.github.librepdf:openpdf:${openpdfVersion}"
+    compile "com.github.librepdf:openpdf:$openpdfVersion"
+    compile "cn.afterturn:easypoi:$easypoiVersion@pom"
+    compile "org.apache.poi:poi-ooxml:$poiVersion"
 
     // #####################################################新依赖加上面###################################################
     // 代码插件
@@ -201,7 +203,7 @@ task codeCoverageReport(type: JacocoReport) {
 
     reports {
         xml.enabled = true
-        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        xml.destination file("$buildDir/reports/jacoco/report.xml")
         html.enabled = false
         csv.enabled = false
     }

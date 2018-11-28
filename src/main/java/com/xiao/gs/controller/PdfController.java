@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * @author luoxiaoxiao
+ */
 @Controller
 @RequestMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
 public class PdfController {
 
     @GetMapping(value = "/word")
-    public String exprotPdfWord(@RequestParam("words") List<String> words, ModelMap model) {
+    public String exprotWordPdf(@RequestParam("words") List<String> words, ModelMap model) {
         model.put("words", words);
-        return "pdfWordView";
+        return "wordPdfView";
     }
 
 }
