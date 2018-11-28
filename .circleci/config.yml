@@ -32,15 +32,15 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: gradle dependencies
-
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
         
       # run tests!
-      - run: gradle clean build
-      - run: gradle check
-      - run: gradle codeCoverageReport
+      - run: chmod +x gradlew
+      - run: ./gradlew dependencies
+      - run: ./gradlew clean build
+      - run: ./gradlew check
+      - run: ./gradlew codeCoverageReport
       - run: bash <(curl -s https://codecov.io/bash)
