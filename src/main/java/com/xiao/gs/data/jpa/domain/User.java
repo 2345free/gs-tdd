@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Data
 @Builder
 @ToString

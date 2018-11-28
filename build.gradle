@@ -132,9 +132,10 @@ dependencies {
     compile 'commons-beanutils:commons-beanutils:1.9.3'
     compile 'commons-validator:commons-validator:1.6'
 
-    // excel / pdf
+    // excel / pdf / xml
     compile "com.github.librepdf:openpdf:$openpdfVersion"
     compile "cn.afterturn:easypoi-base:$easypoiVersion"
+    compile 'com.thoughtworks.xstream:xstream'
 
     // 分页插件
     compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'

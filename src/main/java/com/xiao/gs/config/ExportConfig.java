@@ -4,6 +4,9 @@ import com.google.common.collect.Lists;
 import com.xiao.gs.bind.convert.ExcelHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
+import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -15,6 +18,7 @@ import java.util.List;
 
 import static com.xiao.gs.bind.convert.ExcelHttpMessageConverter.APPLICATION_EXCEL;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_XML;
 
 /**
  * @author luoxiaoxiao
@@ -44,12 +48,22 @@ public class ExportConfig implements WebMvcConfigurer {
                 .ignoreAcceptHeader(true)
                 .defaultContentType(APPLICATION_JSON)
                 .mediaType("json", APPLICATION_JSON)
+                .mediaType("xml", APPLICATION_XML)
                 .mediaType("xls", APPLICATION_EXCEL);
     }
 
     @Bean
-    public ExcelHttpMessageConverter excelHttpMessageConverter() {
+    public HttpMessageConverter excelHttpMessageConverter() {
         return new ExcelHttpMessageConverter();
+    }
+
+    @Bean
+    public HttpMessageConverter xmlHttpMessageConverter() {
+        MarshallingHttpMessageConverter xmlConverter = new MarshallingHttpMessageConverter();
+        XStreamMarshaller xstreamMarshaller = new XStreamMarshaller();
+        xmlConverter.setMarshaller(xstreamMarshaller);
+        xmlConverter.setUnmarshaller(xstreamMarshaller);
+        return xmlConverter;
     }
 
 }

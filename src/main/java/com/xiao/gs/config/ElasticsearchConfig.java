@@ -15,8 +15,20 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.xiao.gs.data.elasticsearch.repository")
 public class ElasticsearchConfig {
 
+    private final TransportClient transportClient;
+
+    public ElasticsearchConfig(TransportClient transportClient) {
+        this.transportClient = transportClient;
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                transportClient.close();
+            }
+        });
+    }
+
     @Bean
-    public ElasticsearchTemplate elasticsearchTemplate(TransportClient transportClient) {
+    public ElasticsearchTemplate elasticsearchTemplate() {
         return new ElasticsearchTemplate(transportClient);
     }
 
