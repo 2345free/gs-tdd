@@ -1,0 +1,49 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
+}
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = "$buildDir/generated-sources/querydsl"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "$querydsl.querydslSourcesDir"
+        }
+    }
+}
+
+dependencies {
+    compile project(':gs-tdd-client')
+
+    // compile 'org.springframework.boot:spring-boot-starter-amqp'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+
+    // compile 'org.springframework.boot:spring-boot-starter-log4j2'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'com.querydsl:querydsl-jpa'
+    // compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'redis.clients:jedis'
+    // compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    // compile 'org.springframework.boot:spring-boot-starter-jooq'
+    // compile 'org.springframework.boot:spring-boot-starter-mail'
+    // compile 'org.springframework.boot:spring-boot-starter-quartz'
+
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile "net.sf.ehcache:ehcache"
+    compile "com.github.ben-manes.caffeine:caffeine"
+
+    compile 'org.apache.commons:commons-lang3'
+    compile 'commons-beanutils:commons-beanutils:1.9.3'
+    compile 'commons-validator:commons-validator:1.6'
+    compile "cn.afterturn:easypoi-base:$easypoiVersion"
+
+    compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+

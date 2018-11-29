@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
+}
+
+springBoot {
+    buildInfo()
+}
+
+dependencies {
+    compile project(':gs-tdd-core')
+
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework.boot:spring-boot-starter-validation'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compile 'de.codecentric:spring-boot-admin-starter-client'
+
+    runtime "com.h2database:h2"
+    runtime 'mysql:mysql-connector-java'
+
+    compile "org.flywaydb:flyway-core"
+
+    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
+    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
+
+    compile "com.github.librepdf:openpdf:$openpdfVersion"
+    compile 'com.thoughtworks.xstream:xstream'
+
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    // testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    testCompile 'org.springframework.security:spring-security-test'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+

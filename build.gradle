@@ -1,221 +1,95 @@
-// gradle构建工具本身的依赖配置(plugins 适用于gradle 2.1以上支持,等价于buildscript)
 plugins {
-    // spring boot
-    id 'org.springframework.boot' version '2.0.5.RELEASE'
-    // querydsl
-    id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
-    // 集成测试
-    id 'org.unbroken-dome.test-sets' version '1.5.1'
-    // 生成Git信息
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE' apply false
+    id 'org.unbroken-dome.test-sets' version '1.5.1' apply false
     id "com.gorylenko.gradle-git-properties" version "1.5.1"
-    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'io.franzbecker.gradle-lombok' version '1.14' apply false
 }
 
-// gradle插件
-// java插件用于编译java源文件等
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-// spring boot打包插件(等价于maven的spring-boot-maven-plugin)
-apply plugin: 'org.springframework.boot'
-// spring依赖管理插件(dependencyManagement)
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'io.franzbecker.gradle-lombok'
-// 代码覆盖率报告插件
-apply plugin: 'jacoco'
-
-group = 'com.xiao.gs'
-version = '1.0.0'
-
-// java编译器版本
-sourceCompatibility = 1.8
-
-// jar包下载来源仓库配置
-repositories {
-    // 使用本地maven仓库
-    mavenLocal()
-    // 如果本地maven仓库没有从此仓库下载
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+allprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
 }
 
-// querydsl代码生成目录配置
-querydsl {
-    jpa = true
-    querydslSourcesDir = "$buildDir/generated-sources/querydsl"
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.franzbecker.gradle-lombok'
+    apply plugin: 'org.unbroken-dome.test-sets'
+    apply plugin: 'jacoco'
 
-// querydsl生成的代码加到编译路径
-sourceSets {
-    main {
-        java {
-            srcDir "$querydsl.querydslSourcesDir"
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+
+    idea {
+        module {
+            downloadSources = true
+            downloadJavadoc = true
         }
     }
-}
 
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
-    }
-}
-
-springBoot {
-    // 生成包含项目的坐标，名称和版本的构建信息
-    buildInfo()
-}
-
-lombok {
-    version = "${lombok.version}"
-    sha256 = ""
-}
-
-configurations {
-//    compile.exclude module: 'spring-boot-starter-logging'
-}
-// 项目依赖配置
-dependencies {
-
-//    compile 'org.springframework.boot:spring-boot-starter-amqp'
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-
-//    compile 'org.springframework.boot:spring-boot-starter-log4j2'
-    // 使用jpa作为数据访问层框架
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // 官方介绍: Querydsl是一个框架，可以构建静态类型的SQL类查询。它们不是将查询编写为内联字符串或将它们外部化为XML文件，而是可以通过Querydsl等流畅的API构建。
-    compile 'com.querydsl:querydsl-jpa'
-//    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    compile 'org.springframework.boot:spring-boot-starter-data-redis'
-    compile 'redis.clients:jedis'
-//    compile 'org.springframework.boot:spring-boot-starter-data-rest'
-//    compile 'org.springframework.boot:spring-boot-starter-jooq'
-//    compile 'org.springframework.boot:spring-boot-starter-mail'
-//    compile 'org.springframework.boot:spring-boot-starter-quartz'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.springframework.boot:spring-boot-starter-validation'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-
-    // 缓存
-    compile 'org.springframework.boot:spring-boot-starter-cache'
-    compile "net.sf.ehcache:ehcache"
-    compile "com.github.ben-manes.caffeine:caffeine"
-
-    // 监控
-    compile 'de.codecentric:spring-boot-admin-starter-client'
-
-    // spring cloud
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-ribbon'
-    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
-    // http请求重试
-    compile 'org.springframework.retry:spring-retry'
-
-    // 数据库
-    // spring boot会自动配置并读取classpath:data.sql加载到内存数据库中
-    runtime "com.h2database:h2"
-//    runtime 'org.hsqldb:hsqldb'
-    runtime 'mysql:mysql-connector-java'
-
-    // 数据库迁移工具
-    compile "org.flywaydb:flyway-core"
-
-    // api文档生成工具
-    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
-    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
-
-    // 工具包
-    compile 'org.apache.commons:commons-lang3'
-    compile 'commons-beanutils:commons-beanutils:1.9.3'
-    compile 'commons-validator:commons-validator:1.6'
-
-    // excel / pdf / xml
-    compile "com.github.librepdf:openpdf:$openpdfVersion"
-    compile "cn.afterturn:easypoi-base:$easypoiVersion"
-    compile 'com.thoughtworks.xstream:xstream'
-
-    // 分页插件
-    compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
-
-    // #####################################################新依赖加上面###################################################
-    // 代码插件
-    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
-    // lombok使用compileOnly有时会报找不到符号@Data和程序包lombok不存在,是这个插件的一个小bug,但是使用compile就不会有问题
-    compile "org.projectlombok:lombok"
-    annotationProcessor "org.projectlombok:lombok"
-    testCompile "org.projectlombok:lombok"
-    testAnnotationProcessor "org.projectlombok:lombok"
-
-    // 测试,spring-boot-starter-test包含spring-test,junit(java单元测试框架),mockito(数据模拟测试框架),hamcrest(一个匹配器框架[Matchers Library]),json-path
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-//    testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-    testCompile 'org.springframework.security:spring-security-test'
-}
-
-// 依赖管理
-dependencyManagement {
-    imports {
-        mavenBom "de.codecentric:spring-boot-admin-dependencies:$springBootAdminVersion"
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
-    }
-}
-
-tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
-
-// 集成测试配置
-// 参考文章
-// https://github.com/unbroken-dome/gradle-testsets-plugin
-// https://www.testwithspring.com/lesson/running-integration-tests-with-gradle-spock-edition/
-// 自定义测试集integrationTest(配置物理目录名为integration-test)
-testSets {
-    integrationTest { dirName = 'integration-test' }
-}
-
-// build 时自动执行junit测试
-build.dependsOn integrationTest
-integrationTest.mustRunAfter test
-
-integrationTest.enabled true
-test.enabled true
-
-test.useJUnit()
-
-test {
-    exclude "**/ElasticsearchOperationsTest.class"
-}
-
-// 开启测试缓存(执行成功的不再执行)
-project.integrationTest {
-    outputs.upToDateWhen { false }
-}
-
-tasks.withType(Test) {
-    reports.html.destination(file("$reporting.baseDir/$name"))
-}
-
-// 代码覆盖率报告任务
-task codeCoverageReport(type: JacocoReport) {
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-    allprojects.each {
-        sourceSets it.sourceSets.main
+    configurations {
+        // compile.exclude module: 'spring-boot-starter-logging'
     }
 
-    reports {
-        xml.enabled = true
-        xml.destination file("$buildDir/reports/jacoco/report.xml")
-        html.enabled = false
-        csv.enabled = false
+    dependencies {
+        compile "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testCompile "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     }
-}
 
-build.dependsOn codeCoverageReport {
-    subprojects*.test
-    subprojects*.integrationTest
-}
+    dependencyManagement {
+        imports {
+            mavenBom "io.spring.platform:platform-bom:Cairo-SR2"
+            mavenBom "de.codecentric:spring-boot-admin-dependencies:2.0.3"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.SR1"
+        }
+    }
 
-// 测试总结:
-// 默认的test目录下的和自定义测试集integration-test目录下的测试类都会执行,并且controller测试类的包名要和真实controller包名一致
+    tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
+
+    testSets {
+        integrationTest { dirName = 'integration-test' }
+    }
+
+    build.dependsOn integrationTest
+    integrationTest.mustRunAfter test
+
+    integrationTest.enabled false
+    test.enabled false
+
+    test.useJUnit()
+
+    project.integrationTest {
+        outputs.upToDateWhen { false }
+    }
+
+    tasks.withType(Test) {
+        reports.html.destination(file("$reporting.baseDir/$name"))
+    }
+
+    task codeCoverageReport(type: JacocoReport) {
+        executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+        allprojects.each {
+            sourceSets it.sourceSets.main
+        }
+
+        reports {
+            xml.enabled = true
+            xml.destination file("$buildDir/reports/jacoco/report.xml")
+            html.enabled = false
+            csv.enabled = false
+        }
+    }
+
+    build.dependsOn codeCoverageReport {
+        allprojects*.test
+        allprojects*.integrationTest
+    }
+
+}

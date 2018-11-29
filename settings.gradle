@@ -1,1 +1,5 @@
 rootProject.name = 'gs-tdd'
+include 'gs-tdd-client'
+include 'gs-tdd-core'
+include 'gs-tdd-webapp'
+
