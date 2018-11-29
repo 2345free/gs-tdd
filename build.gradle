@@ -41,14 +41,14 @@ repositories {
 // querydsl代码生成目录配置
 querydsl {
     jpa = true
-    querydslSourcesDir = "$buildDir/generated-sources/java"
+    querydslSourcesDir = "$buildDir/generated-sources/querydsl"
 }
 
 // querydsl生成的代码加到编译路径
 sourceSets {
     main {
         java {
-            srcDir "$buildDir/generated-sources/java"
+            srcDir "$querydsl.querydslSourcesDir"
         }
     }
 }
