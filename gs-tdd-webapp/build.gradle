@@ -16,9 +16,6 @@ dependencies {
 
     compile 'de.codecentric:spring-boot-admin-starter-client'
 
-    runtime "com.h2database:h2"
-    runtime 'mysql:mysql-connector-java'
-
     compile "org.flywaydb:flyway-core"
 
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"

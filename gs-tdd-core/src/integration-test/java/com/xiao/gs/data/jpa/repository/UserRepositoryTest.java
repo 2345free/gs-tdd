@@ -1,6 +1,6 @@
 package com.xiao.gs.data.jpa.repository;
 
-import com.xiao.gs.AbstractIntegrationTest;
+import com.xiao.gs.data.AbstractJPAIntegrationTest;
 import com.xiao.gs.data.jpa.domain.User;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
+public class UserRepositoryTest extends AbstractJPAIntegrationTest {
 
     private static final Logger log = LoggerFactory.getLogger(UserRepository.class);
 
@@ -40,10 +40,10 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
                 });
 
         // fetch customers by name
-        log.info("User found with findByUsername('luoxx'):");
+        log.info("User found with findByUsername('Chloe'):");
         log.info("--------------------------------------------");
-        User luoxx = userRepository.findByUsername("luoxx");
-        log.info(luoxx.toString());
+        User chloe = userRepository.findByUsername("Chloe");
+        log.info(chloe.toString());
     }
 
 }

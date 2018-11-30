@@ -14,7 +14,6 @@ import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -29,7 +28,6 @@ import static org.springframework.data.redis.cache.RedisCacheConfiguration.defau
 /**
  * @author luoxiaoxiao
  */
-@Profile("cache")
 @EnableCaching
 @Configuration
 @EnableConfigurationProperties(CacheProperties.class)

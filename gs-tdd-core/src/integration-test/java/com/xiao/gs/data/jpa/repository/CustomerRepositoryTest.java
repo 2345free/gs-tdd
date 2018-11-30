@@ -16,7 +16,7 @@
 package com.xiao.gs.data.jpa.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.xiao.gs.AbstractIntegrationTest;
+import com.xiao.gs.data.AbstractJPAIntegrationTest;
 import com.xiao.gs.data.jpa.domain.Customer;
 import com.xiao.gs.data.jpa.domain.EmailAddress;
 import com.xiao.gs.data.jpa.domain.QCustomer;
@@ -29,24 +29,22 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.springframework.data.domain.PageRequest.of;
 
 /**
  * Integration tests for {@link CustomerRepository}.
  */
-public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
+public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
 
     @Autowired
     CustomerRepository repository;
 
     @Test
     public void findsCustomerById() {
-
-        Optional<Customer> customerOptional = repository.findById(1L);
-        Customer customer = customerOptional.get();
-
+        Optional<Customer> optionalCustomer = repository.findById(1L);
+        assertTrue(optionalCustomer.isPresent());
+        Customer customer = optionalCustomer.get();
         assertThat(customer, is(notNullValue()));
         assertThat(customer.getFirstname(), is("Dave"));
         assertThat(customer.getLastname(), is("Matthews"));
@@ -59,7 +57,6 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Stefan"));
         assertThat(result.getLastname(), is("Lassard"));
-
         // 删除此条数据
         Long id = result.getId();
         repository.deleteById(id);
@@ -68,14 +65,12 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void findsAllCustomers() {
-
         List<Customer> customers = repository.findAll();
         assertThat(customers, hasSize(3));
     }
 
     @Test
     public void savesExistingCustomer() {
-
         Optional<Customer> customerOptional = repository.findById(1L);
         Customer dave = customerOptional.get();
         dave.setEmailAddress(new EmailAddress("davematthews@dmband.com"));
@@ -96,7 +91,6 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void findsCustomersByEmailAddress() {
-
         Customer result = repository.findByEmailAddress(new EmailAddress("dave@dmband.com"));
 
         assertThat(result, is(notNullValue()));
@@ -106,7 +100,6 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void accessesCustomersPageByPage() {
-
         Page<Customer> result = repository.findAll(of(1, 1));
 
         assertThat(result, is(notNullValue()));
@@ -117,12 +110,10 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void executesQuerydslPredicate() {
-
         Customer dave = repository.findByEmailAddress(new EmailAddress("dave@dmband.com"));
         Customer carter = repository.findByEmailAddress(new EmailAddress("carter@dmband.com"));
 
         QCustomer customer = QCustomer.customer;
-
         BooleanExpression firstnameStartsWithDa = customer.firstname.startsWith("Da");
         BooleanExpression lastnameContainsEau = customer.lastname.contains("eau");
 

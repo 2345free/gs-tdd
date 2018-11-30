@@ -3,7 +3,6 @@ package com.xiao.gs.web.config;
 import com.xiao.gs.data.redis.listener.TestMessageListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,7 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  *
  * @author luoxiaoxiao
  */
-@Profile("redis")
 @Configuration
 @EnableRedisRepositories(basePackages = "com.xiao.gs.data.redis.repository")
 public class RedisConfig {

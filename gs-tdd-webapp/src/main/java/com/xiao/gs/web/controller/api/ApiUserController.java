@@ -39,7 +39,7 @@ public class ApiUserController {
     }
 
     @ApiOperation(value = "获取用户列表")
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {""})
     public JsonResult exportUser(@PageableDefault(sort = {"id"}, direction = ASC) Pageable pageable) {
         PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
         Page<User> userPage = userService.findAll(pageable);

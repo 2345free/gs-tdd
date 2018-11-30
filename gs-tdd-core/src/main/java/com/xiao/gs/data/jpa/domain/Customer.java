@@ -32,6 +32,7 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Customer extends AbstractEntity {
 
@@ -44,10 +45,6 @@ public class Customer extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Set<Address> addresses = new HashSet<>();
-
-    protected Customer() {
-
-    }
 
     @Override
     public Long getId() {
