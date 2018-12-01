@@ -58,8 +58,8 @@ subprojects {
     build.dependsOn integrationTest
     integrationTest.mustRunAfter test
 
-    integrationTest.enabled false
-    test.enabled false
+    integrationTest.enabled true
+    test.enabled true
 
     test.useJUnit()
 

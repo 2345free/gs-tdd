@@ -18,6 +18,9 @@ package com.xiao.gs;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -25,9 +28,16 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 /**
  * Abstract integration test to populate the database with dummy data.
  */
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GsTddApplication.class, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = AbstractIntegrationTest.TestConfig.class, webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc // 启动完整的上下文但是不启动服务器
 public abstract class AbstractIntegrationTest {
+
+    @Profile("test")
+    @TestConfiguration
+    public static class TestConfig {
+
+    }
 
 }

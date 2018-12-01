@@ -93,7 +93,7 @@ public class CachingConfig {
     @Bean
     public EhCacheCacheManager ehCacheCacheManager() {
         Resource resource = cacheProperties.resolveConfigLocation(cacheProperties.getEhcache().getConfig());
-        return new EhCacheCacheManager(EhCacheManagerUtils.buildCacheManager(resource));
+        return new EhCacheCacheManager(EhCacheManagerUtils.buildCacheManager(UUID.randomUUID().toString(), resource));
     }
 
     @Bean

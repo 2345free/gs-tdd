@@ -15,9 +15,12 @@
  */
 package com.xiao.gs.data;
 
+import com.google.common.collect.Maps;
+import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -27,23 +30,37 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * Abstract integration test to populate the database with dummy data.
  */
 @ActiveProfiles("test")
+@Rollback
+@Transactional
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AbstractJPAIntegrationTest.JPATestConfig.class)
 public abstract class AbstractJPAIntegrationTest {
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Before
+    public void initData() {
+        // org.hibernate.tool.schema.internal.SchemaCreatorImpl 会自动导入import.sql,无需执行下面的手动导入
+        // ScriptUtils.executeSqlScript(DataSourceUtils.getConnection(dataSource), new ClassPathResource("import.sql"));
+    }
+
     @Profile("test")
-    @Configuration
+    @TestConfiguration
     @EnableJpaRepositories(basePackages = "com.xiao.gs.data.jpa.repository")
     public static class JPATestConfig {
 
@@ -62,6 +79,7 @@ public abstract class AbstractJPAIntegrationTest {
             HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
             jpaVendorAdapter.setDatabase(Database.H2);
             jpaVendorAdapter.setGenerateDdl(true);
+            jpaVendorAdapter.setShowSql(true);
             return jpaVendorAdapter;
         }
 
@@ -71,6 +89,9 @@ public abstract class AbstractJPAIntegrationTest {
             lemfb.setDataSource(dataSource());
             lemfb.setJpaVendorAdapter(jpaVendorAdapter());
             lemfb.setPackagesToScan("com.xiao.gs.data.jpa.domain");
+            Map<String, Object> jpaProps = Maps.newHashMapWithExpectedSize(1);
+            jpaProps.put("hibernate.hbm2ddl.auto", "create-drop");
+            lemfb.setJpaPropertyMap(jpaProps);
             return lemfb;
         }
 

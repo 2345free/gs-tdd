@@ -57,10 +57,6 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Stefan"));
         assertThat(result.getLastname(), is("Lassard"));
-        // 删除此条数据
-        Long id = result.getId();
-        repository.deleteById(id);
-        assertFalse(repository.findById(id).isPresent());
     }
 
     @Test
@@ -71,22 +67,20 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
 
     @Test
     public void savesExistingCustomer() {
-        Optional<Customer> customerOptional = repository.findById(1L);
-        Customer dave = customerOptional.get();
+        Optional<Customer> optionalCustomer = repository.findById(1L);
+        assertTrue(optionalCustomer.isPresent());
+        Customer dave = optionalCustomer.get();
         dave.setEmailAddress(new EmailAddress("davematthews@dmband.com"));
         repository.save(dave);
 
-        Optional<Customer> resultOptional = repository.findById(1L);
-        Customer result = resultOptional.get();
+        Optional<Customer> optionalResult = repository.findById(1L);
+        assertTrue(optionalResult.isPresent());
+        Customer result = optionalResult.get();
 
         assertThat(result, is(notNullValue()));
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getFirstname(), is("Dave"));
         assertThat(result.getEmailAddress(), is(new EmailAddress("davematthews@dmband.com")));
-
-        // 还原邮箱,后续测试有用到
-        dave.setEmailAddress(new EmailAddress("dave@dmband.com"));
-        repository.save(dave);
     }
 
     @Test

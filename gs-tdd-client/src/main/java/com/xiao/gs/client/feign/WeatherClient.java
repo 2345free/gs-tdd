@@ -48,17 +48,17 @@ public interface WeatherClient {
             return new WeatherClientFallbackFactory();
         }
 
-        class MessageConverter extends MappingJackson2HttpMessageConverter {
-            MessageConverter() {
-                setSupportedMediaTypes(Lists.newArrayList(MediaType.TEXT_HTML));
-            }
-        }
-
         @Bean
         public Decoder feignDecoder() {
             MessageConverter messageConverter = new MessageConverter();
             ObjectFactory<HttpMessageConverters> objectFactory = () -> new HttpMessageConverters(messageConverter);
             return new SpringDecoder(objectFactory);
+        }
+
+        class MessageConverter extends MappingJackson2HttpMessageConverter {
+            MessageConverter() {
+                setSupportedMediaTypes(Lists.newArrayList(MediaType.TEXT_HTML));
+            }
         }
     }
 
