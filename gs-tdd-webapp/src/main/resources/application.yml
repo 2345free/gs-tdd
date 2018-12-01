@@ -9,6 +9,7 @@ logging:
   path: logs/
   level:
     root: info
+    com.xiao.gs.client.feign: debug
     # 打印请求信息
     org.apache.coyote.http11.Http11InputBuffer: off
     org.springframework.cache: trace
@@ -47,6 +48,19 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+---
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+weather-service:
+  ribbon:
+    listOfServers: www.weather.com.cn
+
 
 ---
 spring:
