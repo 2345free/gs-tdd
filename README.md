@@ -15,3 +15,4 @@
   - Redis存储库集成
 - 缓存集成
 - Elasticsearch集成
+- Spring-webService集成
