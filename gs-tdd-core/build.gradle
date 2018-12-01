@@ -17,6 +17,7 @@ sourceSets {
 
 dependencies {
     compile project(':gs-tdd-client')
+    compile project(':gs-tdd-ws')
 
     // compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-aop'

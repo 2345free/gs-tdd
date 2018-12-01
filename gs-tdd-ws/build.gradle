@@ -1,0 +1,56 @@
+configurations {
+    jaxbGen
+}
+
+// tag::wsdl[]
+task genJava {
+    ext.sourcesDir = "${buildDir}/generated-sources/ip-address-search"
+    ext.classesDir = "${buildDir}/classes/ip-address-search"
+    ext.schema = "http://ws.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl"
+
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "wsdlToJava", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxbGen.asPath
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            wsdlToJava(destdir: sourcesDir, schema: schema,
+                    package: "com.xiao.gs.ws.ip") {
+                arg(value: "-wsdl")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+
+            javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
+                    debugLevel: "lines,vars,source",
+                    classpath: configurations.jaxbGen.asPath) {
+                src(path: sourcesDir)
+                include(name: "**/*.java")
+                include(name: "*.java")
+            }
+
+            copy(todir: classesDir) {
+                fileset(dir: sourcesDir, erroronmissingdir: false) {
+                    exclude(name: "**/*.java")
+                }
+            }
+        }
+    }
+}
+// end::wsdl[]
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.ws:spring-ws-core")
+    compile(files(genJava.classesDir).builtBy(genJava))
+
+    jaxbGen "com.sun.xml.bind:jaxb-xjc:2.1.7"
+}
+
+jar {
+    from genJava.classesDir
+}
+
+classes.dependsOn genJava

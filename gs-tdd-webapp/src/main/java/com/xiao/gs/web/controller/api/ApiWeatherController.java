@@ -1,7 +1,7 @@
 package com.xiao.gs.web.controller.api;
 
-import com.xiao.gs.client.model.WeatherInfo;
 import com.xiao.gs.service.WeatherService;
+import com.xiao.gs.web.model.JsonResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +22,8 @@ public class ApiWeatherController {
     }
 
     @GetMapping("/data/{id}")
-    public WeatherInfo getWeatherInfo(@PathVariable("id") String id) {
-        return weatherService.getWeatherInfo(id);
+    public JsonResult getWeatherInfo(@PathVariable("id") String id) {
+        return JsonResult.success(weatherService.getWeatherInfo(id));
     }
 
 }
