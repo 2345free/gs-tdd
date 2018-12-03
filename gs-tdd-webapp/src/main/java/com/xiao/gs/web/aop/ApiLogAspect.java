@@ -1,4 +1,4 @@
-package com.xiao.gs.core.aop;
+package com.xiao.gs.web.aop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiOperation;

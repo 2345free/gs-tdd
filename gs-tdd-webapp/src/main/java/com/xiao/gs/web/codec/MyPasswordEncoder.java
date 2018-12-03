@@ -1,4 +1,4 @@
-package com.xiao.gs.core.codec;
+package com.xiao.gs.web.codec;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

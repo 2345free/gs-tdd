@@ -1,6 +1,6 @@
 package com.xiao.gs.web.config;
 
-import com.xiao.gs.core.codec.MyPasswordEncoder;
+import com.xiao.gs.web.codec.MyPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
