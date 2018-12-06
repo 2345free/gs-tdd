@@ -17,7 +17,7 @@ public class RedisRepositoryTest extends AbstractIntegrationTest {
     @Test
     public void test1() {
         Person rand = Person.builder().firstname("al'thor").lastname("rand").address(
-                new Address("street", "city", "country")
+                Address.builder().street("street").city("city").country("country").build()
         ).build();
 
         repo.save(rand);
