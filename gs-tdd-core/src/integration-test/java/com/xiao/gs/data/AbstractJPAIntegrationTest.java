@@ -76,7 +76,9 @@ public abstract class AbstractJPAIntegrationTest {
             lemfb.setPackagesToScan("com.xiao.gs.data.jpa.domain");
             Map<String, Object> jpaProps = Maps.newHashMapWithExpectedSize(2);
             jpaProps.put("hibernate.hbm2ddl.auto", "create-drop");
-            jpaProps.put("hibernate.implicit_naming_strategy", "jpa");
+            // 参考JpaProperties源码
+            jpaProps.put("hibernate.implicit_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
+            jpaProps.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
             lemfb.setJpaPropertyMap(jpaProps);
             return lemfb;
         }
