@@ -1,18 +1,3 @@
-/*
- * Copyright 2012-2014 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.xiao.gs.data;
 
 import com.google.common.collect.Maps;
@@ -89,8 +74,9 @@ public abstract class AbstractJPAIntegrationTest {
             lemfb.setDataSource(dataSource());
             lemfb.setJpaVendorAdapter(jpaVendorAdapter());
             lemfb.setPackagesToScan("com.xiao.gs.data.jpa.domain");
-            Map<String, Object> jpaProps = Maps.newHashMapWithExpectedSize(1);
+            Map<String, Object> jpaProps = Maps.newHashMapWithExpectedSize(2);
             jpaProps.put("hibernate.hbm2ddl.auto", "create-drop");
+            jpaProps.put("hibernate.implicit_naming_strategy", "jpa");
             lemfb.setJpaPropertyMap(jpaProps);
             return lemfb;
         }

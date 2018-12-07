@@ -1,18 +1,3 @@
-/*
- * Copyright 2012-2014 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.xiao.gs.data.jpa.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -46,17 +31,17 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
         assertTrue(optionalCustomer.isPresent());
         Customer customer = optionalCustomer.get();
         assertThat(customer, is(notNullValue()));
-        assertThat(customer.getFirstname(), is("Dave"));
-        assertThat(customer.getLastname(), is("Matthews"));
+        assertThat(customer.getFirstName(), is("Dave"));
+        assertThat(customer.getLastName(), is("Matthews"));
     }
 
     @Test
     public void savesNewCustomer() {
-        Customer result = repository.save(Customer.builder().firstname("Stefan").lastname("Lassard").emailAddress(new EmailAddress("Stefan@gmail.com")).build());
+        Customer result = repository.save(Customer.builder().firstName("Stefan").lastName("Lassard").emailAddress(new EmailAddress("Stefan@gmail.com")).build());
         assertThat(result, is(notNullValue()));
         assertThat(result.getId(), is(notNullValue()));
-        assertThat(result.getFirstname(), is("Stefan"));
-        assertThat(result.getLastname(), is("Lassard"));
+        assertThat(result.getFirstName(), is("Stefan"));
+        assertThat(result.getLastName(), is("Lassard"));
     }
 
     @Test
@@ -79,7 +64,7 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
 
         assertThat(result, is(notNullValue()));
         assertThat(result.getId(), is(notNullValue()));
-        assertThat(result.getFirstname(), is("Dave"));
+        assertThat(result.getFirstName(), is("Dave"));
         assertThat(result.getEmailAddress(), is(new EmailAddress("davematthews@dmband.com")));
     }
 
@@ -88,8 +73,8 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
         Customer result = repository.findByEmailAddress(new EmailAddress("dave@dmband.com"));
 
         assertThat(result, is(notNullValue()));
-        assertThat(result.getFirstname(), is("Dave"));
-        assertThat(result.getLastname(), is("Matthews"));
+        assertThat(result.getFirstName(), is("Dave"));
+        assertThat(result.getLastName(), is("Matthews"));
     }
 
     @Test
@@ -108,8 +93,8 @@ public class CustomerRepositoryTest extends AbstractJPAIntegrationTest {
         Customer carter = repository.findByEmailAddress(new EmailAddress("carter@dmband.com"));
 
         QCustomer customer = QCustomer.customer;
-        BooleanExpression firstnameStartsWithDa = customer.firstname.startsWith("Da");
-        BooleanExpression lastnameContainsEau = customer.lastname.contains("eau");
+        BooleanExpression firstnameStartsWithDa = customer.firstName.startsWith("Da");
+        BooleanExpression lastnameContainsEau = customer.lastName.contains("eau");
 
         Iterable<Customer> result = repository.findAll(firstnameStartsWithDa.or(lastnameContainsEau));
 

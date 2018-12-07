@@ -39,6 +39,9 @@ public class EmailAddress {
     @Column(name = "email")
     private String value;
 
+    protected EmailAddress() {
+    }
+
     /**
      * Creates a new {@link EmailAddress} from the given string source.
      *
@@ -47,10 +50,6 @@ public class EmailAddress {
     public EmailAddress(String emailAddress) {
         Assert.isTrue(isValid(emailAddress), "Invalid email address!");
         this.value = emailAddress;
-    }
-
-    protected EmailAddress() {
-
     }
 
     /**
