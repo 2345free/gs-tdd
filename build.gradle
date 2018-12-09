@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.0.5.RELEASE' apply false
     id 'org.unbroken-dome.test-sets' version '1.5.1' apply false
     id 'io.franzbecker.gradle-lombok' version '1.14' apply false
+    id "com.gorylenko.gradle-git-properties" version "1.5.1"
+    id "org.sonarqube" version "2.6" apply false
 }
 
 allprojects {
@@ -15,6 +17,7 @@ subprojects {
     apply plugin: 'io.franzbecker.gradle-lombok'
     apply plugin: 'org.unbroken-dome.test-sets'
     apply plugin: 'jacoco'
+    apply plugin: "org.sonarqube"
 
     sourceCompatibility = 1.8
 
@@ -74,7 +77,7 @@ subprojects {
     task codeCoverageReport(type: JacocoReport) {
         executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
-        allprojects.each {
+        subprojects.each {
             sourceSets it.sourceSets.main
         }
 
@@ -87,8 +90,8 @@ subprojects {
     }
 
     build.dependsOn codeCoverageReport {
-        allprojects*.test
-        allprojects*.integrationTest
+        subprojects*.test
+        subprojects*.integrationTest
     }
 
 }

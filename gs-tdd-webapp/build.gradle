@@ -1,7 +1,3 @@
-plugins {
-    id "com.gorylenko.gradle-git-properties" version "1.5.1"
-}
-
 apply plugin: 'org.springframework.boot'
 
 springBoot {
