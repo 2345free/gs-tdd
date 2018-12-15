@@ -32,7 +32,7 @@ public class CurentUserArgumentResolver implements HandlerMethodArgumentResolver
     }
 
     @Override
-    public Object resolveArgument(@NonNull MethodParameter parameter, ModelAndViewContainer mavContainer, @NonNull NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(@NonNull MethodParameter parameter, ModelAndViewContainer mavContainer, @NonNull NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
 
         Principal principal = webRequest.getUserPrincipal();
         assert principal != null;

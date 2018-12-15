@@ -5,7 +5,7 @@ configurations {
 // tag::wsdl[]
 task genJava {
     ext.sourcesDir = "src/main/java"
-    ext.packageDir = "com.xiao.gs.ws.ip";
+    ext.packageDir = "com.xiao.gs.ws.ip"
     ext.schema = "http://ws.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl"
 
     doLast() {
