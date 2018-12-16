@@ -21,7 +21,8 @@ dependencies {
 
     // compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+//    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    compile 'com.github.vanroy:spring-boot-starter-data-jest:3.1.5.RELEASE'
 
     // compile 'org.springframework.boot:spring-boot-starter-log4j2'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -46,7 +47,7 @@ dependencies {
     compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
 
     runtime "com.h2database:h2"
-    runtime 'mysql:mysql-connector-java'
+//    runtime 'mysql:mysql-connector-java'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -34,6 +34,9 @@ spring:
       cluster-nodes: localhost:9300
       properties:
         client.transport.sniff: false # 适用于集群节点
+        path.home: target/elastic
+    jest:
+      uri: http://localhost:9200
 
 ---
 spring:

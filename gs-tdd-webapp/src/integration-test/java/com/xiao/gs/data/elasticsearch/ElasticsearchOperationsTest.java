@@ -1,7 +1,9 @@
-package com.xiao.gs.data.elasticsearch.repository;
+package com.xiao.gs.data.elasticsearch;
 
 import com.xiao.gs.AbstractIntegrationTest;
 import com.xiao.gs.data.elasticsearch.document.Conference;
+import com.xiao.gs.data.elasticsearch.repository.ConferenceRepository;
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class ElasticsearchOperationsTest extends AbstractIntegrationTest {
         assertThat(result, hasSize(2));
     }
 
+    @After
     @PreDestroy
     public void deleteIndex() {
         template.deleteIndex(Conference.class);
