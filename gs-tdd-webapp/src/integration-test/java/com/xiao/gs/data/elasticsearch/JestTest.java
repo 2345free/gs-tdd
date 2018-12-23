@@ -31,6 +31,9 @@ public class JestTest extends AbstractIntegrationTest {
 
     @Test
     public void testDefaultSettings() {
+        saveCustomers();
+        fetchAllCustomers();
+        fetchIndividualCustomers();
         String output = this.outputCapture.toString();
         assertThat(output).contains("firstName='Alice', lastName='Smith'");
     }
@@ -43,9 +46,6 @@ public class JestTest extends AbstractIntegrationTest {
     @PostConstruct
     public void insertDataSample() {
         this.repository.deleteAll();
-        saveCustomers();
-        fetchAllCustomers();
-        fetchIndividualCustomers();
     }
 
     private void saveCustomers() {
