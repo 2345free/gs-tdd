@@ -57,7 +57,7 @@ public interface WeatherClient {
 
         class MessageConverter extends MappingJackson2HttpMessageConverter {
             MessageConverter() {
-                setSupportedMediaTypes(Lists.newArrayList(MediaType.TEXT_HTML));
+                setSupportedMediaTypes(Lists.newArrayList(MediaType.APPLICATION_JSON, new MediaType("application", "*+json"), MediaType.TEXT_HTML));
             }
         }
     }
