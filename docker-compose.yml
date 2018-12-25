@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=gs-tdd
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+      image: elasticsearch:5.6.14-alpine
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+
+  gs-tdd:
+    image: 2345free/gs-tdd-webapp
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
+      - redis
+      - elasticsearch
