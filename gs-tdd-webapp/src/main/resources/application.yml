@@ -2,7 +2,7 @@ server:
   servlet:
     context-path: /
 #  address: 192.168.3.30
-  port: 80
+  port: 8080
   ssl:
     enabled: false
 logging:
@@ -92,6 +92,26 @@ spring:
       cache-null-values: false
     ehcache:
       config: classpath:cache/ehcache.xml
+
+---
+spring:
+  profiles: docker
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/gs-tdd?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+  redis:
+    host: redis
+    port: 6379
+  elasticsearch:
+    jest:
+      uris:
+        - http://elasticsearch:9200
 
 ---
 spring:
