@@ -29,12 +29,6 @@ spring:
       # 如果使用mysql,jpa生成表默认是myisam引擎,使用此属性可以更改默认引擎
       hibernate.dialect.storage_engine: innodb
   data:
-    elasticsearch:
-      cluster-name: elasticsearch
-      cluster-nodes: localhost:9300
-      properties:
-        client.transport.sniff: false # 适用于集群节点
-        path.home: target/elastic
     jest:
       uri: http://localhost:9200
 
@@ -108,10 +102,9 @@ spring:
   redis:
     host: redis
     port: 6379
-  elasticsearch:
+  data:
     jest:
-      uris:
-        - http://elasticsearch:9200
+      uri: http://elasticsearch:9200
 
 ---
 spring:
