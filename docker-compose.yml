@@ -29,3 +29,7 @@ services:
       - mysql
       - redis
       - elasticsearch
+    depends_on:
+      - mysql
+      - redis
+      - elasticsearch
