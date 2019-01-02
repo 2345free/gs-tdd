@@ -15,6 +15,7 @@
  */
 package com.xiao.gs;
 
+import com.xiao.gs.web.GsTddApplication;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

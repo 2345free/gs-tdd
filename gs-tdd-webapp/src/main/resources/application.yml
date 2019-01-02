@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /
-#  address: 192.168.3.30
+  address: 192.168.1.248
   port: 8080
   ssl:
     enabled: false
@@ -16,10 +16,9 @@ logging:
     net.sf.ehcache: trace
     com.github.benmanes.caffeine: trace
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.cloud.consul: debug
 spring:
-  application:
-    name: test-driven-development
-  profiles.active: h2,swagger
+  profiles.active: h2,swagger,monitor
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -31,6 +30,16 @@ spring:
   data:
     jest:
       uri: http://localhost:9200
+  cloud:
+    consul:
+      host: 192.168.1.250
+      port: 8500
+      discovery:
+        health-check-path: ${management.endpoints.web.base-path}/health
+        hostname: ${server.address}
+
+ribbon:
+  ServerListRefreshInterval: 1000
 
 ---
 spring:
@@ -108,7 +117,7 @@ spring:
 
 ---
 spring:
-  profiles: monitor
+  profiles: sba
   boot:
   # spring boot admin server info
     admin:
@@ -138,6 +147,9 @@ info:
   developer: luoxiaoxiao
   github: https://github.com/2345free/gs-tdd
 
+---
+spring:
+  profiles: monitor
 management:
   endpoints:
     web:

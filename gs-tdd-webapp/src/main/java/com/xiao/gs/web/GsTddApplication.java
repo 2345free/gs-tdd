@@ -1,4 +1,4 @@
-package com.xiao.gs;
+package com.xiao.gs.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

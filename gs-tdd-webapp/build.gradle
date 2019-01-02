@@ -28,6 +28,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-validation'
     compile 'org.springframework.boot:spring-boot-starter-web'
 
+    compile 'org.springframework.cloud:spring-cloud-starter-consul-all'
+
     compile 'de.codecentric:spring-boot-admin-starter-client'
 
     compile "org.flywaydb:flyway-core"

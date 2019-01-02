@@ -1,4 +1,4 @@
-package com.xiao.gs.ws.config;
+package com.xiao.gs.web.config;
 
 import com.xiao.gs.ws.client.IpCountryCityClient;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
  * @date 2018-12-01 22:44
  */
 @Configuration
-public class ClientConfig {
+public class WsClientConfig {
 
     @Bean
     public Jaxb2Marshaller marshaller() {

@@ -20,14 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Profile("monitor")
 @Order(2)
 @Configuration
-public class ActuatorSecurityConfig extends WebSecurityConfigurerAdapter {
+public class EndpointSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String MGD_ROLE = "MGD-ADMIN";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .requestMatcher(EndpointRequest.toAnyEndpoint())
+                .requestMatcher(EndpointRequest.toAnyEndpoint().excluding("health"))
                 .authorizeRequests()
                 .anyRequest().hasRole(MGD_ROLE)
                 .and()

@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.xiao.gs.web.util.ViewUtils.API_ROUTE_PREFIX;
+
 /**
  * @author luoxiaoxiao
  * @date 2018-12-01 17:26
  */
 @RestController
-@RequestMapping("/api/weather")
+@RequestMapping(API_ROUTE_PREFIX + "/weather")
 public class ApiWeatherController {
 
     private final WeatherService weatherService;

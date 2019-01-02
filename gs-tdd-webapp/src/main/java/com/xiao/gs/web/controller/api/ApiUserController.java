@@ -20,6 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 
+import static com.xiao.gs.web.util.ViewUtils.USER_ROUTE;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
 /**
@@ -29,7 +30,7 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 @Slf4j
 @RestController
 @SessionAttributes(types = User.class)
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = USER_ROUTE)
 public class ApiUserController {
 
     private final UserService userService;
