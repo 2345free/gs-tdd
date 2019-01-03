@@ -1,5 +1,6 @@
 plugins {
     id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
+    id 'io.github.divinespear.jpa-schema-generate' version '0.3.5.1'
 }
 
 querydsl {
@@ -50,5 +51,28 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+generateSchema {
+
+    scriptAction = 'drop-and-create'
+    format = true
+
+    vendor = 'hibernate' // 'eclipselink', 'hibernate', or 'hibernate+spring'.
+    // you can use class name too. (like 'org.hibernate.jpa.HibernatePersistenceProvider')
+    packageToScan = ['com.xiao.gs.data.jpa.domain']
+
+    jdbcDriver = 'com.mysql.jdbc.Driver'
+    jdbcUrl = 'jdbc:mysql://localhost:3306/gs-tdd'
+    jdbcUser = 'root'
+
+    properties = [
+            'jadira.usertype.autoRegisterUserTypes': 'true',
+            'hibernate.dialect'                    : 'org.hibernate.dialect.MySQL5InnoDBDialect',
+            'hibernate.id.new_generator_mappings'  : 'true',
+            'hibernate.implicit_naming_strategy'   : 'org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy',
+            'hibernate.physical_naming_strategy'   : 'org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
+    ]
+
 }
 
