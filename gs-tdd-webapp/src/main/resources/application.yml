@@ -114,6 +114,13 @@ spring:
   data:
     jest:
       uri: http://elasticsearch:9200
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+      discovery:
+        health-check-path: ${management.endpoints.web.base-path}/health
+        hostname: ${server.address}
 
 ---
 spring:

@@ -21,6 +21,11 @@ services:
         - "9200:9200"
         - "9300:9300"
 
+  consul:
+      image: consul:1.4.0
+      ports:
+        - "8500:8500"
+
   gs-tdd:
     image: 2345free/gs-tdd-webapp
     ports:
@@ -28,4 +33,5 @@ services:
     depends_on:
       - redis
       - elasticsearch
+      - consul
       - mysql
