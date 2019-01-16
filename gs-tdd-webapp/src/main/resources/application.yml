@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /
-  address: 192.168.1.248
+#  address: 192.168.1.248
   port: 8080
   ssl:
     enabled: false
@@ -36,7 +36,7 @@ spring:
       port: 8500
       discovery:
         health-check-path: ${management.endpoints.web.base-path}/health
-        hostname: ${server.address}
+        hostname: ${server.address:localhost}
 
 ribbon:
   ServerListRefreshInterval: 1000
@@ -120,7 +120,7 @@ spring:
       port: 8500
       discovery:
         health-check-path: ${management.endpoints.web.base-path}/health
-        hostname: ${server.address}
+        hostname: ${server.address:localhost}
 
 ---
 spring:
