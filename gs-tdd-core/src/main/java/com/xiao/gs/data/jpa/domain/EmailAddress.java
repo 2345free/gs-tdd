@@ -15,12 +15,13 @@
  */
 package com.xiao.gs.data.jpa.domain;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
 /**
@@ -29,18 +30,17 @@ import java.util.regex.Pattern;
  * @author luoxiaoxiao
  */
 @Data
-@Builder
+@NoArgsConstructor
 @Embeddable
-public class EmailAddress {
+public class EmailAddress implements Serializable {
+
+    private static final long serialVersionUID = -4910878651950127846L;
 
     private static final String EMAIL_REGEX = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
 
     @Column(name = "email")
     private String value;
-
-    protected EmailAddress() {
-    }
 
     /**
      * Creates a new {@link EmailAddress} from the given string source.
@@ -62,23 +62,4 @@ public class EmailAddress {
         return candidate != null && PATTERN.matcher(candidate).matches();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof EmailAddress)) {
-            return false;
-        }
-
-        EmailAddress that = (EmailAddress) obj;
-        return this.value.equals(that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
 }

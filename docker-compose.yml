@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   mysql:
@@ -25,11 +25,7 @@ services:
     image: 2345free/gs-tdd-webapp
     ports:
       - "8080:8080"
-    links:
-      - mysql
-      - redis
-      - elasticsearch
     depends_on:
-      - mysql
       - redis
       - elasticsearch
+      - mysql

@@ -1,12 +1,16 @@
 package com.xiao.gs.data;
 
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
+import org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -19,6 +23,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManagerFactory;
@@ -28,6 +33,7 @@ import java.util.Map;
 /**
  * Abstract integration test to populate the database with dummy data.
  */
+@Slf4j
 @ActiveProfiles("test")
 @Rollback
 @Transactional
@@ -40,14 +46,17 @@ public abstract class AbstractJPAIntegrationTest {
 
     @Before
     public void initData() {
+        log.info("dbType:{}", dataSource.getClass().getName());
         // org.hibernate.tool.schema.internal.SchemaCreatorImpl 会自动导入import.sql,无需执行下面的手动导入
         // ScriptUtils.executeSqlScript(DataSourceUtils.getConnection(dataSource), new ClassPathResource("import.sql"));
     }
 
     @Profile("test")
     @TestConfiguration
+    @EnableJpaAuditing
+    @EnableTransactionManagement
     @EnableJpaRepositories(basePackages = "com.xiao.gs.data.jpa.repository")
-    public static class JPATestConfig {
+    static class JPATestConfig {
 
         @Bean
         public DataSource dataSource() {
@@ -77,8 +86,8 @@ public abstract class AbstractJPAIntegrationTest {
             Map<String, Object> jpaProps = Maps.newHashMapWithExpectedSize(2);
             jpaProps.put("hibernate.hbm2ddl.auto", "create-drop");
             // 参考JpaProperties源码
-            jpaProps.put("hibernate.implicit_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
-            jpaProps.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+            jpaProps.put("hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName());
+            jpaProps.put("hibernate.physical_naming_strategy", SpringPhysicalNamingStrategy.class.getName());
             lemfb.setJpaPropertyMap(jpaProps);
             return lemfb;
         }

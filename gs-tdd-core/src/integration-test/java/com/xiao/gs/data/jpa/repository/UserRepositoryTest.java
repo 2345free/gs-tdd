@@ -2,15 +2,12 @@ package com.xiao.gs.data.jpa.repository;
 
 import com.xiao.gs.data.AbstractJPAIntegrationTest;
 import com.xiao.gs.data.jpa.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+@Slf4j
 public class UserRepositoryTest extends AbstractJPAIntegrationTest {
-
-    private static final Logger log = LoggerFactory.getLogger(UserRepository.class);
 
     @Autowired
     private UserRepository userRepository;

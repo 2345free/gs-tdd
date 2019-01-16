@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class User extends AbstractEntity {
+public class User extends AbstractEntityAuditable<Long> {
 
     public static final long serialVersionUID = 1L;
 

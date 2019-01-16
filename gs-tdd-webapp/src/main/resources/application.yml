@@ -18,7 +18,7 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     org.springframework.cloud.consul: debug
 spring:
-  profiles.active: h2,swagger,monitor
+  profiles.active: h2,swagger,monitor,sba
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -128,7 +128,7 @@ spring:
         password: ${sba.server.password:123}
         url: ${sba.server.url:http://localhost:2018}
         instance:
-          serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://${server.address:localhost}:80}
+          serviceBaseUrl: ${sba.client.instance.serviceBaseUrl:http://${server.address:localhost}:${server.port:8080}}
           metadata:
           # admin client's auth
             user.name: sba

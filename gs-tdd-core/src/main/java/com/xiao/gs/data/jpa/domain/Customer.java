@@ -15,11 +15,13 @@ import java.util.Set;
 @Data
 @Builder
 @ToString
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer extends AbstractEntity {
+public class Customer extends AbstractEntityAuditable<Long> {
+
+    private static final long serialVersionUID = 8103806442544866225L;
 
     private String firstName;
 
