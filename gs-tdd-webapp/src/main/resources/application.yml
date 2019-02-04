@@ -21,15 +21,14 @@ spring:
   profiles.active: h2,swagger,monitor,sba
   jpa:
     # 如果使用mysql,jpa生成表默认是myisam引擎,使用此属性可以更改默认引擎
-    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect:
-          storage_engine: innodb
+        dialect: org.hibernate.dialect.MySQL5Dialect
   data:
     jest:
       uri: http://localhost:9200
@@ -108,15 +107,14 @@ spring:
     username: root
     password:
   jpa:
-    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect:
-          storage_engine: innodb
+        dialect: org.hibernate.dialect.MySQL5Dialect
   redis:
     host: redis
     port: 6379
