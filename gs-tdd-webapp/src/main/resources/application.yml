@@ -28,7 +28,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect:
+          storage_engine: innodb
   data:
     jest:
       uri: http://localhost:9200
@@ -114,7 +115,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect:
+          storage_engine: innodb
   redis:
     host: redis
     port: 6379
