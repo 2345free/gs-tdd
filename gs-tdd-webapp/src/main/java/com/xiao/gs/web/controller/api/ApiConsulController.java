@@ -7,14 +7,13 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 import static com.xiao.gs.web.util.ViewUtils.CONSUL_ROUTE;
 
-@RestController
+//@RestController
 @RequestMapping(CONSUL_ROUTE)
 public class ApiConsulController {
 

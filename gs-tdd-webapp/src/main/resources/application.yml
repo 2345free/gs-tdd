@@ -18,12 +18,12 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     org.springframework.cloud.consul: debug
 spring:
-  profiles.active: h2,swagger,monitor,sba
+  profiles.active: h2,swagger
   jpa:
     # 如果使用mysql,jpa生成表默认是myisam引擎,使用此属性可以更改默认引擎
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -33,13 +33,18 @@ spring:
   data:
     jest:
       uri: http://localhost:9200
-  cloud:
-    consul:
-      host: 192.168.1.250
-      port: 8500
-      discovery:
-        health-check-path: ${management.endpoints.web.base-path}/health
-        hostname: ${server.address:localhost}
+    elasticsearch:
+      repositories:
+        enabled: false
+#  cloud:
+#    consul:
+#      host: 192.168.1.250
+#      port: 8500
+#      discovery:
+#        health-check-path: ${management.endpoints.web.base-path}/health
+#        hostname: ${server.address:localhost}
+#      config:
+#        enabled: false
 
 ribbon:
   ServerListRefreshInterval: 1000

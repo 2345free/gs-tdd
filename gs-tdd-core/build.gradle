@@ -23,7 +23,7 @@ dependencies {
     // compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'org.springframework.boot:spring-boot-starter-aop'
 //    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-    compile 'com.github.vanroy:spring-boot-starter-data-jest:3.1.5.RELEASE'
+//    compile 'com.github.vanroy:spring-boot-starter-data-jest:3.1.5.RELEASE'
 
     // compile 'org.springframework.boot:spring-boot-starter-log4j2'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -44,6 +44,7 @@ dependencies {
     compile 'commons-beanutils:commons-beanutils:1.9.3'
     compile 'commons-validator:commons-validator:1.6'
     compile "cn.afterturn:easypoi-base:$easypoiVersion"
+    compile "joda-time:joda-time"
 
     compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
 
@@ -68,7 +69,7 @@ generateSchema {
 
     properties = [
             'jadira.usertype.autoRegisterUserTypes': 'true',
-            'hibernate.dialect'                    : 'org.hibernate.dialect.MySQL5InnoDBDialect',
+            'hibernate.dialect'                    : 'org.hibernate.dialect.H2Dialect',
             'hibernate.id.new_generator_mappings'  : 'true',
             'hibernate.implicit_naming_strategy'   : 'org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy',
             'hibernate.physical_naming_strategy'   : 'org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
